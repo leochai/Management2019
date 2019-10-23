@@ -4,7 +4,7 @@ Imports System.Threading
 Imports LeoControls
 
 Public Class frmMain
-    Dim ShowList(23) As ArrayList
+    Dim ShowList(31) As ArrayList
     Dim frmInt As New frmIntegral
     Public unitTemp As New LHUnit
     
@@ -23,7 +23,7 @@ Public Class frmMain
     End Sub
 
     Private Sub PaintShow()
-        For k = 0 To 23
+        For k = 0 To 31
             ShowList(k) = New ArrayList
             If Not _unit(k).座子类型 Then       '1位器件
                 Dim sshow(47) As OneShow
@@ -41,7 +41,7 @@ Public Class frmMain
                     Next
                 Next
             Else                        '2、4位器件
-                Dim sshow(23) As FourShow
+                Dim sshow(31) As FourShow
                 For j = 0 To 3
                     For i = 0 To 5
                         sshow(j * 6 + i) = New FourShow
@@ -144,7 +144,7 @@ Public Class frmMain
 
         '------打开数据库，初始化单元对象
         _DBconn.Open()
-        For i = 0 To 23
+        For i = 0 To 31
             _unit(i) = New LHUnit
         Next
         DBMethord.Initial(_DBconn, _unit)
@@ -333,7 +333,7 @@ Public Class frmMain
         Dim lastrecord(2) As Byte
         Dim thisrecord(2) As Byte
         Dim i As Byte
-        For k = 0 To 23
+        For k = 0 To 31
             For i = 0 To 2
                 DownloadCmd.Record(RS485, _unit(k))
                 Me.Invoke(New TextCallback(AddressOf showbyte), txtSend, RS485.outputbuffer, RS485.outputlength)
@@ -371,7 +371,7 @@ Public Class frmMain
             '上一日记录召回
             Select Case Date.Compare(_unit(k).lastHour.Date, lastdate.Date)
                 Case 0          '上次记录日期等于上一日日期，从上次记录时间开始往后召回
-                    For i = _unit(k).lastHour.Hour + 1 To 23
+                    For i = _unit(k).lastHour.Hour + 1 To 31
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -389,7 +389,7 @@ Public Class frmMain
                     Next
                 Case -1         '上次记录日期小于上一日日期，召回整个上一日有效记录
                     _unit(k).lastHour = lastdate.AddHours(-1)
-                    For i = 0 To 23
+                    For i = 0 To 31
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -428,7 +428,7 @@ Public Class frmMain
                     Next
                 Case -1         '上次记录日期小于上一日日期，召回整个当日有效记录
                     _unit(k).lastHour = thisdate.AddHours(-1)
-                    For i = 0 To 23
+                    For i = 0 To 31
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -618,7 +618,7 @@ Public Class frmMain
                         power = 75 * volt / 28
                 End Select
 
-                For i = 0 To 23
+                For i = 0 To 31
                     If _unit(i).address = address Then Exit For
                 Next
 
@@ -642,14 +642,14 @@ Public Class frmMain
                     End If
                 End If
             Case &H3    '请求参数
-                For i = 0 To 23
+                For i = 0 To 31
                     If _unit(i).address = address Then
                         DistributeTask(i)
                         Exit For
                     End If
                 Next
             Case &HC    '340暂停
-                For i = 0 To 23
+                For i = 0 To 31
                     If _unit(i).address = address Then
                         _unit(i).Testing = &HC
                         DBMethord.UpdateStates(i, _unit(i).Testing)
@@ -657,7 +657,7 @@ Public Class frmMain
                     End If
                 Next
             Case &H30   '1000停止
-                For i = 0 To 23
+                For i = 0 To 31
                     If _unit(i).address = address Then
                         _unit(i).Testing = &H30
                         DBMethord.UpdateStates(i, _unit(i).Testing)
@@ -676,7 +676,7 @@ Public Class frmMain
         Next
 
         Dim i As Byte
-        For i = 0 To 23
+        For i = 0 To 31
             If address = _unit(i).address Then Exit For
         Next
 
@@ -685,7 +685,7 @@ Public Class frmMain
         Dim time = _unit(i).lastHour
 
         If _unit(i).器件类型 = 0 Then       '1位器件的数据压入
-            For k = 0 To 23
+            For k = 0 To 31
                 If _unit(i).对位表(k + part * 24) Then
                     Dim volt As Single, power As Single
                     Select Case _unit(i).电压规格
@@ -703,7 +703,7 @@ Public Class frmMain
                             power = 75 * volt / 28
                     End Select
 
-                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24), _
+                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24),
                                           CByte(1), time, volt)
                 End If
             Next
@@ -711,7 +711,7 @@ Public Class frmMain
 
         If _unit(i).器件类型 = 1 Then       '2位器件的数据压入
             Dim isFirst As Boolean = True
-            For k = 0 To 23
+            For k = 0 To 31
                 If _unit(i).对位表(k + part * 24) Then
                     Dim volt As Single, power As Single
                     Select Case _unit(i).电压规格
@@ -732,7 +732,7 @@ Public Class frmMain
                     Else
                         subnum = 2
                     End If
-                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24), _
+                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24),
                                           subnum, time, volt)
                     isFirst = Not isFirst
                 End If
@@ -740,7 +740,7 @@ Public Class frmMain
         End If
 
         If _unit(i).器件类型 = 2 Then       '4位器件的数据压入
-            For k = 0 To 23
+            For k = 0 To 31
                 If _unit(i).对位表(k + part * 24) Then
                     Dim volt As Single, power As Single
                     Select Case _unit(i).电压规格
@@ -755,7 +755,7 @@ Public Class frmMain
                             power = 75 * volt / 28
                     End Select
 
-                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24), _
+                    DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24),
                                           CByte((k + part * 24) Mod 4 + 1), time, volt)
                 End If
             Next
@@ -1076,5 +1076,6 @@ Public Class frmMain
     Private Sub Label31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label31.Click
         frmLogin.ShowDialog()
     End Sub
+
 
 End Class
