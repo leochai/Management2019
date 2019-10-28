@@ -22,44 +22,7 @@ Public Class frmMain
         obj.Enabled = enable
     End Sub
 
-    Private Sub PaintShow()
-        For k = 0 To 31
-            ShowList(k) = New ArrayList
-            If Not _unit(k).座子类型 Then       '1位器件
-                Dim sshow(47) As OneShow
-                For j = 0 To 3
-                    For i = 0 To 11
-                        sshow(j * 12 + i) = New OneShow
-                        With sshow(j * 12 + i)
-                            .Left = 76 * i + 14
-                            .Top = 145 * j + 50
-                            .ShowNum = j * 12 + i + 1
-                            .Parent = TabControl1.TabPages(k)
-                            .Enabled = True
-                        End With
-                        ShowList(k).Add(sshow(j * 12 + i))
-                    Next
-                Next
-            Else                        '2、4位器件
-                Dim sshow(31) As FourShow
-                For j = 0 To 3
-                    For i = 0 To 5
-                        sshow(j * 6 + i) = New FourShow
-                        With sshow(j * 6 + i)
-                            .Left = 150 * i + 22
-                            .Top = 145 * j + 50
-                            .ShowNum = j * 6 + i + 1
-                            .Parent = TabControl1.TabPages(k)
-                            .Enabled = True
-                        End With
-                        ShowList(k).Add(sshow(j * 6 + i))
-                    Next
-                Next
-            End If
-            TabControl1.TabPages(k).BackColor = Color.FromArgb(204, 232, 207)
-            TabControl1.TabPages(k).Show()
-        Next
-    End Sub '画界面
+
 
     Private Sub ThreadInit()
         _commFlag.polling = False
@@ -149,21 +112,6 @@ Public Class frmMain
         Next
         DBMethord.Initial(_DBconn, _unit)
 
-        '------查询区初始化
-        Dim dbcmd As New OleDbCommand
-        dbCmd.Connection = _DBconn
-        dbCmd.CommandText = "select distinct 试验编号 from 试验结果"
-
-        Dim reader As OleDbDataReader
-        reader = dbCmd.ExecuteReader()
-        If reader.HasRows Then
-            While reader.Read
-                cmbTestNo.Items.Add(reader("试验编号"))
-            End While
-        End If
-        reader.Close()
-
-        PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
         OneSec.Enabled = True
         OneMin.Enabled = True
@@ -773,17 +721,17 @@ Public Class frmMain
         
     End Sub
 
-    Private Sub TextSend_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSend.TextChanged
+    Private Sub TextSend_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         txtSend.SelectionStart = txtSend.TextLength
         txtSend.ScrollToCaret()
     End Sub
 
-    Private Sub TextRecv_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRecv.TextChanged
+    Private Sub TextRecv_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         txtRecv.SelectionStart = txtRecv.TextLength
         txtRecv.ScrollToCaret()
     End Sub
 
-    Private Sub TabControl1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl1.Click
+    Private Sub TabControl1_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         ShowUnitInfo(TabControl1.SelectedIndex)
     End Sub
 
@@ -877,7 +825,7 @@ Public Class frmMain
         txtUser.Focus()
     End Sub
 
-    Private Sub btnLogOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLogOK.Click
+    Private Sub btnLogOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim dbcmd As New OleDbCommand
         Dim reader As OleDbDataReader
         dbcmd.Connection = _DBconn
@@ -893,7 +841,7 @@ Public Class frmMain
             If reader("密码") = txtPwd.Text Then
                 unitTemp.操作员 = txtUser.Text
                 Panel2.Enabled = True
-                panel2.BorderStyle = Windows.Forms.BorderStyle.Fixed3D
+                Panel2.BorderStyle = Windows.Forms.BorderStyle.Fixed3D
             Else
                 MsgBox("密码错误！")
                 txtUser.Text = ""
@@ -1047,35 +995,5 @@ Public Class frmMain
         InitOperationZone()
     End Sub
     '--------------------------------------
-
-    '--------------------------------------
-    '-----------搜索区
-    Private Sub btnCheck_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheck.Click
-        Dim dbCmd As New OleDbCommand
-        dbCmd.Connection = _DBconn
-        dbCmd.CommandText = "select 记录日期 from 试验结果 where 试验编号 = '" & cmbTestNo.SelectedItem & "' order by 记录日期"
-        Dim reader As OleDbDataReader
-        reader = dbCmd.ExecuteReader()
-
-        If reader.HasRows Then
-            reader.Read()
-            lblTime.Text = reader("记录日期")
-        End If
-
-        Dim adapt As New OleDbDataAdapter _
-            ("select 器件编号, 管芯号, 电压 from 试验结果 where 试验编号 = '" & cmbTestNo.SelectedItem & "'", _DBconn)
-        Dim userDS As New DataSet
-        adapt.Fill(userDS, "Table")
-
-        DataGridView1.DataSource = userDS
-        DataGridView1.DataMember = "Table"
-    End Sub
-
-
-    '--------------------------------------
-    Private Sub Label31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label31.Click
-        frmLogin.ShowDialog()
-    End Sub
-
 
 End Class

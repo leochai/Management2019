@@ -23,33 +23,6 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.txtRecv = New System.Windows.Forms.TextBox()
-        Me.txtSend = New System.Windows.Forms.TextBox()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.TabPage7 = New System.Windows.Forms.TabPage()
-        Me.TabPage8 = New System.Windows.Forms.TabPage()
-        Me.TabPage9 = New System.Windows.Forms.TabPage()
-        Me.TabPage10 = New System.Windows.Forms.TabPage()
-        Me.TabPage11 = New System.Windows.Forms.TabPage()
-        Me.TabPage12 = New System.Windows.Forms.TabPage()
-        Me.TabPage13 = New System.Windows.Forms.TabPage()
-        Me.TabPage14 = New System.Windows.Forms.TabPage()
-        Me.TabPage15 = New System.Windows.Forms.TabPage()
-        Me.TabPage16 = New System.Windows.Forms.TabPage()
-        Me.TabPage17 = New System.Windows.Forms.TabPage()
-        Me.TabPage18 = New System.Windows.Forms.TabPage()
-        Me.TabPage19 = New System.Windows.Forms.TabPage()
-        Me.TabPage20 = New System.Windows.Forms.TabPage()
-        Me.TabPage21 = New System.Windows.Forms.TabPage()
-        Me.TabPage22 = New System.Windows.Forms.TabPage()
-        Me.TabPage23 = New System.Windows.Forms.TabPage()
-        Me.TabPage24 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.lblstatus = New System.Windows.Forms.Label()
@@ -81,23 +54,7 @@ Partial Class frmMain
         Me.lbl电压规格 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.lbl单元编号 = New System.Windows.Forms.Label()
-        Me.OneSec = New System.Windows.Forms.Timer(Me.components)
-        Me.OneMin = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.btnNexthour = New System.Windows.Forms.Button()
-        Me.btnlasthour = New System.Windows.Forms.Button()
-        Me.lblTime = New System.Windows.Forms.Label()
-        Me.btnCheck = New System.Windows.Forms.Button()
-        Me.cmbTestNo = New System.Windows.Forms.ComboBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.grp操作 = New System.Windows.Forms.GroupBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnLogOK = New System.Windows.Forms.Button()
-        Me.txtPwd = New System.Windows.Forms.TextBox()
-        Me.txtUser = New System.Windows.Forms.TextBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.txt质量等级 = New System.Windows.Forms.TextBox()
         Me.txt生产批号 = New System.Windows.Forms.TextBox()
@@ -132,312 +89,36 @@ Partial Class frmMain
         Me.Label26 = New System.Windows.Forms.Label()
         Me.btnStartCancel = New System.Windows.Forms.Button()
         Me.btnStartOK = New System.Windows.Forms.Button()
-        Me.Label29 = New System.Windows.Forms.Label()
+        Me.OneSec = New System.Windows.Forms.Timer(Me.components)
+        Me.OneMin = New System.Windows.Forms.Timer(Me.components)
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnNexthour = New System.Windows.Forms.Button()
+        Me.btnlasthour = New System.Windows.Forms.Button()
+        Me.lblTime = New System.Windows.Forms.Label()
+        Me.btnCheck = New System.Windows.Forms.Button()
+        Me.cmbTestNo = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label35 = New System.Windows.Forms.Label()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grp操作.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Controls.Add(Me.TabPage3)
-        Me.TabControl1.Controls.Add(Me.TabPage4)
-        Me.TabControl1.Controls.Add(Me.TabPage5)
-        Me.TabControl1.Controls.Add(Me.TabPage6)
-        Me.TabControl1.Controls.Add(Me.TabPage7)
-        Me.TabControl1.Controls.Add(Me.TabPage8)
-        Me.TabControl1.Controls.Add(Me.TabPage9)
-        Me.TabControl1.Controls.Add(Me.TabPage10)
-        Me.TabControl1.Controls.Add(Me.TabPage11)
-        Me.TabControl1.Controls.Add(Me.TabPage12)
-        Me.TabControl1.Controls.Add(Me.TabPage13)
-        Me.TabControl1.Controls.Add(Me.TabPage14)
-        Me.TabControl1.Controls.Add(Me.TabPage15)
-        Me.TabControl1.Controls.Add(Me.TabPage16)
-        Me.TabControl1.Controls.Add(Me.TabPage17)
-        Me.TabControl1.Controls.Add(Me.TabPage18)
-        Me.TabControl1.Controls.Add(Me.TabPage19)
-        Me.TabControl1.Controls.Add(Me.TabPage20)
-        Me.TabControl1.Controls.Add(Me.TabPage21)
-        Me.TabControl1.Controls.Add(Me.TabPage22)
-        Me.TabControl1.Controls.Add(Me.TabPage23)
-        Me.TabControl1.Controls.Add(Me.TabPage24)
-        Me.TabControl1.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TabControl1.ItemSize = New System.Drawing.Size(40, 18)
-        Me.TabControl1.Location = New System.Drawing.Point(225, 22)
-        Me.TabControl1.Multiline = True
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1097, 714)
-        Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
-        Me.TabControl1.TabIndex = 8
-        '
-        'TabPage1
-        '
-        Me.TabPage1.BackColor = System.Drawing.Color.Transparent
-        Me.TabPage1.Controls.Add(Me.txtRecv)
-        Me.TabPage1.Controls.Add(Me.txtSend)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.TabPage1.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "1"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'txtRecv
-        '
-        Me.txtRecv.Location = New System.Drawing.Point(260, 25)
-        Me.txtRecv.Multiline = True
-        Me.txtRecv.Name = "txtRecv"
-        Me.txtRecv.ReadOnly = True
-        Me.txtRecv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtRecv.Size = New System.Drawing.Size(188, 349)
-        Me.txtRecv.TabIndex = 17
-        Me.txtRecv.Visible = False
-        '
-        'txtSend
-        '
-        Me.txtSend.Location = New System.Drawing.Point(42, 25)
-        Me.txtSend.Multiline = True
-        Me.txtSend.Name = "txtSend"
-        Me.txtSend.ReadOnly = True
-        Me.txtSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSend.Size = New System.Drawing.Size(188, 349)
-        Me.txtSend.TabIndex = 16
-        Me.txtSend.Visible = False
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.TabPage2.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "2"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'TabPage3
-        '
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.TabPage3.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "3"
-        Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'TabPage4
-        '
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.TabPage4.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "4"
-        Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'TabPage5
-        '
-        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage5.TabIndex = 4
-        Me.TabPage5.Text = "5"
-        Me.TabPage5.UseVisualStyleBackColor = True
-        '
-        'TabPage6
-        '
-        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage6.TabIndex = 5
-        Me.TabPage6.Text = "6"
-        Me.TabPage6.UseVisualStyleBackColor = True
-        '
-        'TabPage7
-        '
-        Me.TabPage7.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage7.Name = "TabPage7"
-        Me.TabPage7.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage7.TabIndex = 6
-        Me.TabPage7.Text = "7"
-        Me.TabPage7.UseVisualStyleBackColor = True
-        '
-        'TabPage8
-        '
-        Me.TabPage8.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage8.Name = "TabPage8"
-        Me.TabPage8.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage8.TabIndex = 7
-        Me.TabPage8.Text = "8"
-        Me.TabPage8.UseVisualStyleBackColor = True
-        '
-        'TabPage9
-        '
-        Me.TabPage9.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage9.Name = "TabPage9"
-        Me.TabPage9.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage9.TabIndex = 8
-        Me.TabPage9.Text = "9"
-        Me.TabPage9.UseVisualStyleBackColor = True
-        '
-        'TabPage10
-        '
-        Me.TabPage10.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage10.Name = "TabPage10"
-        Me.TabPage10.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage10.TabIndex = 9
-        Me.TabPage10.Text = "10"
-        Me.TabPage10.UseVisualStyleBackColor = True
-        '
-        'TabPage11
-        '
-        Me.TabPage11.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage11.Name = "TabPage11"
-        Me.TabPage11.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage11.TabIndex = 10
-        Me.TabPage11.Text = "11"
-        Me.TabPage11.UseVisualStyleBackColor = True
-        '
-        'TabPage12
-        '
-        Me.TabPage12.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage12.Name = "TabPage12"
-        Me.TabPage12.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage12.TabIndex = 11
-        Me.TabPage12.Text = "12"
-        Me.TabPage12.UseVisualStyleBackColor = True
-        '
-        'TabPage13
-        '
-        Me.TabPage13.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage13.Name = "TabPage13"
-        Me.TabPage13.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage13.TabIndex = 12
-        Me.TabPage13.Text = "13"
-        Me.TabPage13.UseVisualStyleBackColor = True
-        '
-        'TabPage14
-        '
-        Me.TabPage14.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.TabPage14.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage14.Name = "TabPage14"
-        Me.TabPage14.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage14.TabIndex = 13
-        Me.TabPage14.Text = "14"
-        '
-        'TabPage15
-        '
-        Me.TabPage15.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage15.Name = "TabPage15"
-        Me.TabPage15.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage15.TabIndex = 14
-        Me.TabPage15.Text = "15"
-        Me.TabPage15.UseVisualStyleBackColor = True
-        '
-        'TabPage16
-        '
-        Me.TabPage16.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage16.Name = "TabPage16"
-        Me.TabPage16.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage16.TabIndex = 15
-        Me.TabPage16.Text = "16"
-        Me.TabPage16.UseVisualStyleBackColor = True
-        '
-        'TabPage17
-        '
-        Me.TabPage17.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage17.Name = "TabPage17"
-        Me.TabPage17.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage17.TabIndex = 16
-        Me.TabPage17.Text = "17"
-        Me.TabPage17.UseVisualStyleBackColor = True
-        '
-        'TabPage18
-        '
-        Me.TabPage18.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage18.Name = "TabPage18"
-        Me.TabPage18.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage18.TabIndex = 17
-        Me.TabPage18.Text = "18"
-        Me.TabPage18.UseVisualStyleBackColor = True
-        '
-        'TabPage19
-        '
-        Me.TabPage19.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage19.Name = "TabPage19"
-        Me.TabPage19.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage19.TabIndex = 18
-        Me.TabPage19.Text = "19"
-        Me.TabPage19.UseVisualStyleBackColor = True
-        '
-        'TabPage20
-        '
-        Me.TabPage20.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage20.Name = "TabPage20"
-        Me.TabPage20.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage20.TabIndex = 19
-        Me.TabPage20.Text = "20"
-        Me.TabPage20.UseVisualStyleBackColor = True
-        '
-        'TabPage21
-        '
-        Me.TabPage21.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage21.Name = "TabPage21"
-        Me.TabPage21.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage21.TabIndex = 20
-        Me.TabPage21.Text = "21"
-        Me.TabPage21.UseVisualStyleBackColor = True
-        '
-        'TabPage22
-        '
-        Me.TabPage22.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage22.Name = "TabPage22"
-        Me.TabPage22.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage22.TabIndex = 21
-        Me.TabPage22.Text = "22"
-        Me.TabPage22.UseVisualStyleBackColor = True
-        '
-        'TabPage23
-        '
-        Me.TabPage23.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage23.Name = "TabPage23"
-        Me.TabPage23.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage23.TabIndex = 22
-        Me.TabPage23.Text = "23"
-        Me.TabPage23.UseVisualStyleBackColor = True
-        '
-        'TabPage24
-        '
-        Me.TabPage24.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage24.Name = "TabPage24"
-        Me.TabPage24.Size = New System.Drawing.Size(1089, 688)
-        Me.TabPage24.TabIndex = 23
-        Me.TabPage24.Text = "24"
-        Me.TabPage24.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(207, Byte), Integer))
         Me.GroupBox1.Controls.Add(Me.Panel5)
         Me.GroupBox1.Controls.Add(Me.grp操作)
-        Me.GroupBox1.Controls.Add(Me.TabControl1)
         Me.GroupBox1.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 57)
+        Me.GroupBox1.Location = New System.Drawing.Point(45, 57)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1357, 743)
+        Me.GroupBox1.Size = New System.Drawing.Size(248, 743)
         Me.GroupBox1.TabIndex = 15
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "状态显示区"
@@ -543,7 +224,7 @@ Partial Class frmMain
         '
         Me.SwitchLight.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.SwitchLight.Location = New System.Drawing.Point(84, 9)
-        Me.SwitchLight.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.SwitchLight.Margin = New System.Windows.Forms.Padding(6)
         Me.SwitchLight.Name = "SwitchLight"
         Me.SwitchLight.Size = New System.Drawing.Size(40, 40)
         Me.SwitchLight.TabIndex = 42
@@ -766,102 +447,9 @@ Partial Class frmMain
         Me.lbl单元编号.TabIndex = 29
         Me.lbl单元编号.Text = "Label12"
         '
-        'OneSec
-        '
-        Me.OneSec.Interval = 1300
-        '
-        'OneMin
-        '
-        Me.OneMin.Interval = 60000
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.btnNexthour)
-        Me.GroupBox2.Controls.Add(Me.btnlasthour)
-        Me.GroupBox2.Controls.Add(Me.lblTime)
-        Me.GroupBox2.Controls.Add(Me.btnCheck)
-        Me.GroupBox2.Controls.Add(Me.cmbTestNo)
-        Me.GroupBox2.Controls.Add(Me.Label12)
-        Me.GroupBox2.Controls.Add(Me.DataGridView1)
-        Me.GroupBox2.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(1389, 57)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(500, 934)
-        Me.GroupBox2.TabIndex = 18
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "数据查询区"
-        '
-        'btnNexthour
-        '
-        Me.btnNexthour.Location = New System.Drawing.Point(337, 98)
-        Me.btnNexthour.Name = "btnNexthour"
-        Me.btnNexthour.Size = New System.Drawing.Size(32, 25)
-        Me.btnNexthour.TabIndex = 25
-        Me.btnNexthour.Text = ">"
-        Me.btnNexthour.UseVisualStyleBackColor = True
-        '
-        'btnlasthour
-        '
-        Me.btnlasthour.Location = New System.Drawing.Point(110, 98)
-        Me.btnlasthour.Name = "btnlasthour"
-        Me.btnlasthour.Size = New System.Drawing.Size(32, 25)
-        Me.btnlasthour.TabIndex = 24
-        Me.btnlasthour.Text = "<"
-        Me.btnlasthour.UseVisualStyleBackColor = True
-        '
-        'lblTime
-        '
-        Me.lblTime.AutoSize = True
-        Me.lblTime.Location = New System.Drawing.Point(212, 103)
-        Me.lblTime.Name = "lblTime"
-        Me.lblTime.Size = New System.Drawing.Size(56, 14)
-        Me.lblTime.TabIndex = 23
-        Me.lblTime.Text = "Label36"
-        '
-        'btnCheck
-        '
-        Me.btnCheck.Location = New System.Drawing.Point(295, 49)
-        Me.btnCheck.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnCheck.Name = "btnCheck"
-        Me.btnCheck.Size = New System.Drawing.Size(103, 25)
-        Me.btnCheck.TabIndex = 22
-        Me.btnCheck.Text = "检  索"
-        Me.btnCheck.UseVisualStyleBackColor = True
-        '
-        'cmbTestNo
-        '
-        Me.cmbTestNo.FormattingEnabled = True
-        Me.cmbTestNo.Location = New System.Drawing.Point(98, 49)
-        Me.cmbTestNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.cmbTestNo.Name = "cmbTestNo"
-        Me.cmbTestNo.Size = New System.Drawing.Size(107, 22)
-        Me.cmbTestNo.TabIndex = 21
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(27, 54)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(63, 14)
-        Me.Label12.TabIndex = 20
-        Me.Label12.Text = "试验编号"
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(7, 135)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowTemplate.Height = 23
-        Me.DataGridView1.Size = New System.Drawing.Size(486, 792)
-        Me.DataGridView1.TabIndex = 19
-        '
         'grp操作
         '
         Me.grp操作.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(207, Byte), Integer))
-        Me.grp操作.Controls.Add(Me.Panel1)
         Me.grp操作.Controls.Add(Me.Panel4)
         Me.grp操作.Controls.Add(Me.Panel3)
         Me.grp操作.Controls.Add(Me.Panel2)
@@ -870,71 +458,13 @@ Partial Class frmMain
         Me.grp操作.Controls.Add(Me.Label26)
         Me.grp操作.Controls.Add(Me.btnStartCancel)
         Me.grp操作.Controls.Add(Me.btnStartOK)
-        Me.grp操作.Controls.Add(Me.Label29)
         Me.grp操作.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.grp操作.Location = New System.Drawing.Point(208, 556)
+        Me.grp操作.Location = New System.Drawing.Point(241, 559)
         Me.grp操作.Name = "grp操作"
-        Me.grp操作.Size = New System.Drawing.Size(1357, 173)
+        Me.grp操作.Size = New System.Drawing.Size(727, 173)
         Me.grp操作.TabIndex = 41
         Me.grp操作.TabStop = False
         Me.grp操作.Text = "试验操作区"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.btnLogOK)
-        Me.Panel1.Controls.Add(Me.txtPwd)
-        Me.Panel1.Controls.Add(Me.txtUser)
-        Me.Panel1.Controls.Add(Me.Label33)
-        Me.Panel1.Controls.Add(Me.Label34)
-        Me.Panel1.Location = New System.Drawing.Point(104, 30)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(133, 131)
-        Me.Panel1.TabIndex = 12
-        '
-        'btnLogOK
-        '
-        Me.btnLogOK.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnLogOK.Location = New System.Drawing.Point(59, 105)
-        Me.btnLogOK.Name = "btnLogOK"
-        Me.btnLogOK.Size = New System.Drawing.Size(61, 19)
-        Me.btnLogOK.TabIndex = 42
-        Me.btnLogOK.Text = "确  定"
-        Me.btnLogOK.UseVisualStyleBackColor = True
-        '
-        'txtPwd
-        '
-        Me.txtPwd.Location = New System.Drawing.Point(18, 76)
-        Me.txtPwd.Name = "txtPwd"
-        Me.txtPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPwd.Size = New System.Drawing.Size(102, 23)
-        Me.txtPwd.TabIndex = 10
-        Me.txtPwd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtUser
-        '
-        Me.txtUser.Location = New System.Drawing.Point(18, 24)
-        Me.txtUser.Name = "txtUser"
-        Me.txtUser.Size = New System.Drawing.Size(102, 23)
-        Me.txtUser.TabIndex = 9
-        Me.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(8, 54)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(35, 14)
-        Me.Label33.TabIndex = 8
-        Me.Label33.Text = "密码"
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 5)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(35, 14)
-        Me.Label34.TabIndex = 6
-        Me.Label34.Text = "姓名"
         '
         'Panel4
         '
@@ -1029,7 +559,7 @@ Partial Class frmMain
         Me.Panel3.Controls.Add(Me.Label21)
         Me.Panel3.Controls.Add(Me.cmbType)
         Me.Panel3.Controls.Add(Me.Label22)
-        Me.Panel3.Location = New System.Drawing.Point(614, 30)
+        Me.Panel3.Location = New System.Drawing.Point(427, 30)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(265, 131)
         Me.Panel3.TabIndex = 12
@@ -1152,7 +682,7 @@ Partial Class frmMain
         Me.Panel2.Controls.Add(Me.Label14)
         Me.Panel2.Controls.Add(Me.cmbUnitNo)
         Me.Panel2.Controls.Add(Me.Label15)
-        Me.Panel2.Location = New System.Drawing.Point(331, 30)
+        Me.Panel2.Location = New System.Drawing.Point(126, 30)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(190, 131)
         Me.Panel2.TabIndex = 0
@@ -1221,15 +751,15 @@ Partial Class frmMain
         '
         'Label27
         '
-        Me.Label27.Location = New System.Drawing.Point(543, 68)
+        Me.Label27.Location = New System.Drawing.Point(351, 68)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(70, 78)
+        Me.Label27.Size = New System.Drawing.Size(70, 50)
         Me.Label27.TabIndex = 28
         Me.Label27.Text = "第三步：确定试验产品参数"
         '
         'Label26
         '
-        Me.Label26.Location = New System.Drawing.Point(260, 68)
+        Me.Label26.Location = New System.Drawing.Point(36, 59)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(70, 50)
         Me.Label26.TabIndex = 27
@@ -1253,14 +783,97 @@ Partial Class frmMain
         Me.btnStartOK.Text = "开 始"
         Me.btnStartOK.UseVisualStyleBackColor = True
         '
-        'Label29
+        'OneSec
         '
-        Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(33, 68)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(70, 50)
-        Me.Label29.TabIndex = 30
-        Me.Label29.Text = "第一步：操作员登录"
+        Me.OneSec.Interval = 1300
+        '
+        'OneMin
+        '
+        Me.OneMin.Interval = 60000
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.btnNexthour)
+        Me.GroupBox2.Controls.Add(Me.btnlasthour)
+        Me.GroupBox2.Controls.Add(Me.lblTime)
+        Me.GroupBox2.Controls.Add(Me.btnCheck)
+        Me.GroupBox2.Controls.Add(Me.cmbTestNo)
+        Me.GroupBox2.Controls.Add(Me.Label12)
+        Me.GroupBox2.Controls.Add(Me.DataGridView1)
+        Me.GroupBox2.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(1389, 57)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(500, 934)
+        Me.GroupBox2.TabIndex = 18
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "数据查询区"
+        '
+        'btnNexthour
+        '
+        Me.btnNexthour.Location = New System.Drawing.Point(337, 98)
+        Me.btnNexthour.Name = "btnNexthour"
+        Me.btnNexthour.Size = New System.Drawing.Size(32, 25)
+        Me.btnNexthour.TabIndex = 25
+        Me.btnNexthour.Text = ">"
+        Me.btnNexthour.UseVisualStyleBackColor = True
+        '
+        'btnlasthour
+        '
+        Me.btnlasthour.Location = New System.Drawing.Point(110, 98)
+        Me.btnlasthour.Name = "btnlasthour"
+        Me.btnlasthour.Size = New System.Drawing.Size(32, 25)
+        Me.btnlasthour.TabIndex = 24
+        Me.btnlasthour.Text = "<"
+        Me.btnlasthour.UseVisualStyleBackColor = True
+        '
+        'lblTime
+        '
+        Me.lblTime.AutoSize = True
+        Me.lblTime.Location = New System.Drawing.Point(212, 103)
+        Me.lblTime.Name = "lblTime"
+        Me.lblTime.Size = New System.Drawing.Size(56, 14)
+        Me.lblTime.TabIndex = 23
+        Me.lblTime.Text = "Label36"
+        '
+        'btnCheck
+        '
+        Me.btnCheck.Location = New System.Drawing.Point(295, 49)
+        Me.btnCheck.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCheck.Name = "btnCheck"
+        Me.btnCheck.Size = New System.Drawing.Size(103, 25)
+        Me.btnCheck.TabIndex = 22
+        Me.btnCheck.Text = "检  索"
+        Me.btnCheck.UseVisualStyleBackColor = True
+        '
+        'cmbTestNo
+        '
+        Me.cmbTestNo.FormattingEnabled = True
+        Me.cmbTestNo.Location = New System.Drawing.Point(98, 49)
+        Me.cmbTestNo.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbTestNo.Name = "cmbTestNo"
+        Me.cmbTestNo.Size = New System.Drawing.Size(107, 22)
+        Me.cmbTestNo.TabIndex = 21
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(27, 54)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(63, 14)
+        Me.Label12.TabIndex = 20
+        Me.Label12.Text = "试验编号"
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(7, 135)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowTemplate.Height = 23
+        Me.DataGridView1.Size = New System.Drawing.Size(486, 792)
+        Me.DataGridView1.TabIndex = 19
         '
         'Label35
         '
@@ -1288,54 +901,23 @@ Partial Class frmMain
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "光电耦合器寿命台管理软件"
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grp操作.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage7 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage8 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage9 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage11 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage12 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage13 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage14 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage15 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage16 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage17 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage18 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage19 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage20 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage21 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage22 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage23 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage24 As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents txtSend As System.Windows.Forms.TextBox
     Friend WithEvents OneSec As System.Windows.Forms.Timer
     Friend WithEvents OneMin As System.Windows.Forms.Timer
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -1349,7 +931,6 @@ Partial Class frmMain
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents txtRecv As System.Windows.Forms.TextBox
     Friend WithEvents lbl操作员 As System.Windows.Forms.Label
     Friend WithEvents lbl例试编号 As System.Windows.Forms.Label
     Friend WithEvents lbl标准号 As System.Windows.Forms.Label
@@ -1397,13 +978,6 @@ Partial Class frmMain
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents txtPwd As System.Windows.Forms.TextBox
-    Friend WithEvents txtUser As System.Windows.Forms.TextBox
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents Label29 As System.Windows.Forms.Label
-    Friend WithEvents btnLogOK As System.Windows.Forms.Button
     Friend WithEvents btnStartCancel As System.Windows.Forms.Button
     Friend WithEvents btnStartOK As System.Windows.Forms.Button
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
