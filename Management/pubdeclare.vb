@@ -28,8 +28,7 @@ End Class
 
 Module pubdeclare
     Public _DBconn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" & Application.StartupPath & "/db/老化台.accdb")
-    Public _管理员密码 As String = "65108280"
-    Public _unit(23) As LHUnit
+    Public _unit(32) As LHUnit
     Public _readBuffer(32) As Byte
     Public _commFlag As New commFlag
     Public _rts前沿 As Integer = 2

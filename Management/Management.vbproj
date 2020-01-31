@@ -118,12 +118,6 @@
     <Compile Include="frm340.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLogin.Designer.vb">
-      <DependentUpon>frmLogin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmLogin.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -159,12 +153,6 @@
       <DependentUpon>frm启动试验.vb</DependentUpon>
     </Compile>
     <Compile Include="frm启动试验.vb" />
-    <Compile Include="frm操作员.Designer.vb">
-      <DependentUpon>frm操作员.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frm操作员.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frm数据检索.Designer.vb">
       <DependentUpon>frm数据检索.vb</DependentUpon>
     </Compile>
@@ -173,6 +161,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LHUnit.vb" />
+    <Compile Include="logic.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -197,10 +188,6 @@
     <EmbeddedResource Include="frm340.resx">
       <DependentUpon>frm340.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLogin.resx">
-      <DependentUpon>frmLogin.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -223,10 +210,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm启动试验.resx">
       <DependentUpon>frm启动试验.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm操作员.resx">
-      <DependentUpon>frm操作员.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frm数据检索.resx">
       <DependentUpon>frm数据检索.vb</DependentUpon>

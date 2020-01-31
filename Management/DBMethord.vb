@@ -24,8 +24,11 @@ Public Class DBMethord
                     If Not reader("座子类型") Is DBNull.Value Then
                         .座子类型 = reader("座子类型")
                     End If
-                    If Not reader("电压规格") Is DBNull.Value Then
-                        .电压规格 = reader("电压规格")
+                    If Not reader("电压流标记") Is DBNull.Value Then
+                        .电压流标记 = reader("电压流标记")
+                    End If
+                    If Not reader("电压流规格") Is DBNull.Value Then
+                        .电压流规格 = reader("电压流规格")
                     End If
                     If Not reader("上限") Is DBNull.Value Then
                         .上限 = reader("上限")
@@ -105,15 +108,39 @@ Public Class DBMethord
                             "#, 试验编号 = '" & _unit(unitNo).试验编号 & _
                             "' where 老化单元号 = " & unitNo + 1
         dbcmd.ExecuteNonQuery()
-        dbcmd.CommandText = "insert into 试验记录 values('" & _unit(unitNo).试验编号 & _
-                            "', '" & _unit(unitNo).产品型号 & _
-                            "', '" & _unit(unitNo).生产批号 & _
-                            "', '" & _unit(unitNo).标准号 & _
-                            "', #" & _unit(unitNo).开机日期 & _
-                            "#, '" & _unit(unitNo).操作员 & _
-                            "', '" & _unit(unitNo).质量等级 & _
-                            "', " & _unit(unitNo).电压规格 & _
-                            ", " & _unit(unitNo).上限 & _
+        Dim vc As String = ""
+        If _unit(unitNo).电压流标记 Then
+            Select Case _unit(unitNo).电压流规格
+                Case 0
+                    vc = "21V"
+                Case 1
+                    vc = "25V"
+                Case 2
+                    vc = "28V"
+                Case 3
+                    vc = "16V"
+                Case 4
+                    vc = "5.5V"
+            End Select
+        Else
+            Select Case _unit(unitNo).电压流规格
+                Case 1
+                    vc = "10mA"
+                Case 2
+                    vc = "20mA"
+                Case 3
+                    vc = "30mA"
+            End Select
+        End If
+        dbcmd.CommandText = "insert into 试验记录 values('" & _unit(unitNo).试验编号 &
+                            "', '" & _unit(unitNo).产品型号 &
+                            "', '" & _unit(unitNo).生产批号 &
+                            "', '" & _unit(unitNo).标准号 &
+                            "', #" & _unit(unitNo).开机日期 &
+                            "#, '" & _unit(unitNo).操作员 &
+                            "', '" & _unit(unitNo).质量等级 &
+                            "', '" & vc &
+                            "', " & _unit(unitNo).上限 &
                             ", " & _unit(unitNo).下限 & ")"
         dbcmd.ExecuteNonQuery()
         For i = 0 To 95

@@ -28,14 +28,13 @@
         '参数下发
         SyncLock lock
             Dim param As New prmDistribute
-            Dim volt As Byte
-            Select Case unit.电压规格
-                Case 21 : volt = 0
-                Case 25 : volt = 1
-                Case 28 : volt = 2
-                Case 16 : volt = 3
-            End Select
-            param.type = (unit.器件类型 << 4) + volt
+            If unit.电压流标记 Then
+                '电流型单元
+                param.type = (unit.器件类型 << 4) Or (unit.电压流规格 << 6) Or &B111
+            Else
+                '电压型单元
+                param.type = (unit.器件类型 << 4) + unit.电压流规格
+            End If
             param.max = unit.上限
             param.mini = unit.下限
             param.hour = Num2BCD(Now.Hour)
