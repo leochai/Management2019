@@ -21,6 +21,7 @@ Public Class frmMain
         obj.Enabled = enable
     End Sub
 
+
     Private Sub PaintShow()
         For k = 0 To 31
             ShowList(k) = New mainShow
@@ -33,6 +34,7 @@ Public Class frmMain
             End With
         Next
     End Sub '画界面
+
 
     Private Sub ThreadInit()
         _commFlag.polling = False
@@ -121,21 +123,15 @@ Public Class frmMain
             _unit(i) = New LHUnit
         Next
         DBMethord.Initial(_DBconn, _unit)
-
-
-
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
         'OneSec.Enabled = True
         'OneMin.Enabled = True
 
-
         '单元操作区初始化
         InitOperationZone()
 
         fs.Close()
-
-
     End Sub
 
     Private Sub OneSec_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OneSec.Tick
@@ -218,10 +214,12 @@ Public Class frmMain
 
     End Sub
 
+
     Private Sub txtSend_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSend.TextChanged
         txtSend.SelectionStart = txtSend.TextLength
         txtSend.ScrollToCaret()
     End Sub
+
 
     Private Sub txtRecv_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRecv.TextChanged
         txtRecv.SelectionStart = txtRecv.TextLength
@@ -238,6 +236,7 @@ Public Class frmMain
 
     '--------------------------------------
     '单元操作区的操作逻辑放在此处
+
     Private Sub cmbUnitNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUnitNo.SelectedIndexChanged
         If cmbUnitNo.SelectedIndex = -1 Then Exit Sub
         Dim unitNo As Byte = cmbUnitNo.SelectedIndex
@@ -413,6 +412,5 @@ Public Class frmMain
 
         InitOperationZone()
     End Sub
-
 
 End Class

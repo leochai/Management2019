@@ -14,8 +14,6 @@
     Public 下限 As Byte
     Public 器件类型 As Byte     '0-单位，1-双位，2-四位，3-独立
     Public address As Byte
-    Public Testing As Byte      '单元状态：00-正常，03-请求参数，0C-340暂停，30-1000停止
+    Public Testing As Byte     '单元状态：00-正常，03-请求参数，0C-340暂停，30-1000停止
     Public lastHour As Date
-
-
 End Class

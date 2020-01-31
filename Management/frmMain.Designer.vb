@@ -23,6 +23,7 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+
         Me.OneSec = New System.Windows.Forms.Timer(Me.components)
         Me.OneMin = New System.Windows.Forms.Timer(Me.components)
         Me.Label35 = New System.Windows.Forms.Label()

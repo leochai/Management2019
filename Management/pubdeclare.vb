@@ -1,5 +1,4 @@
 ﻿Imports System.Data.OleDb
-Imports System.IO.Ports
 
 Public Class prmDistribute
     Public second As Byte
