@@ -81,6 +81,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -135,6 +136,12 @@
       <DependentUpon>frmPosChart2.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPosChart2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPosChart21.Designer.vb">
+      <DependentUpon>frmPosChart21.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPosChart21.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPosChart4.Designer.vb">
@@ -199,6 +206,9 @@
     <EmbeddedResource Include="frmPosChart2.resx">
       <DependentUpon>frmPosChart2.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPosChart21.resx">
+      <DependentUpon>frmPosChart21.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPosChart4.resx">
       <DependentUpon>frmPosChart4.vb</DependentUpon>

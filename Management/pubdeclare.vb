@@ -15,12 +15,13 @@ Public Class prmDistribute
 End Class
 
 Public Class commFlag
+    Public test660 As Boolean
     Public polling As Boolean
     Public startup As Boolean
     Public integral As Boolean
     Public timeModify As Boolean
     Public reboot340 As Boolean
-    public reboot As Boolean
+    Public reboot As Boolean
     Public unitNo_polling As Byte
     Public unitNo_start As Byte
 End Class

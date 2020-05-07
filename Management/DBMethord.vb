@@ -54,13 +54,13 @@ Public Class DBMethord
                     If Not reader("开机日期") Is DBNull.Value Then
                         .开机日期 = reader("开机日期")
                     End If
-                    If Not reader("操作员") Is DBNull.Value Then
-                        .操作员 = reader("操作员")
+                    If Not reader("结果文件") Is DBNull.Value Then
+                        .结果文件 = reader("结果文件")
                     End If
                 End With
             End While
         End If
-        For i = 0 To 23
+        For i = 0 To 23 '读对位表
             dbcom.CommandText = "select 老化位号,器件编号 from 对位表 where 老化单元号 = " & i + 1
             reader.Close()
             reader = dbcom.ExecuteReader()
@@ -76,21 +76,139 @@ Public Class DBMethord
         reader.Close
     End Sub
 
-    Public Shared Sub WriteResult(ByVal testnum As String, ByVal chipnum As Byte, ByVal num As Byte, _
-                                  ByVal time As Date, ByVal volt As Single)
+    'Public Shared Sub WriteResult(ByVal testnum As String, ByVal chipnum As Byte, ByVal num As Byte, _
+    '                              ByVal time As Date, ByVal volt As Single)
+    '    Dim cn As New OleDbConnection()
+    '    Dim dbcmd As New OleDbCommand
+    '    dbcmd.Connection = _DBconn
+
+    '    time = time.AddMinutes(-time.Minute)
+    '    time = time.AddSeconds(-time.Second)
+
+    '    
+    'End Sub
+
+    Public Shared Sub WriteResult(ByVal unitNo As Byte, ByVal chippos As Byte, ByVal AD As Byte， AD1 As Byte)
+        Dim cn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" _
+            & _unit(unitNo).结果文件 & ";Extended Properties='Excel 8.0'")
         Dim dbcmd As New OleDbCommand
-        dbcmd.Connection = _DBconn
-
-        time = time.AddMinutes(-time.Minute)
+        Dim time As Date
+        Dim volt As Double, current As Double, power As Double
+        dbcmd.Connection = cn
+        time = _unit(unitNo).lastHour
         time = time.AddSeconds(-time.Second)
+        time = time.AddMinutes(-time.Minute)
 
-        dbcmd.CommandText = "insert into 试验结果 values('" _
-                            & testnum & "'," _
-                            & chipnum & "," _
-                            & num & ",#" _
-                            & time & "#," _
-                            & Math.Floor(volt * 10) / 10 & ")"
+        cn.Open()
+
+        If _unit(unitNo).座子类型 Then '16脚座子，只有21 25 28三种额定电压
+            Select Case _unit(unitNo).电压流规格
+                Case 0
+                    volt = (AD * 1175 + 387200) / 25600
+                    power = 75 * volt / 21
+                Case 1
+                    volt = (AD * 1375 + 464000) / 25600
+                    power = 75 * volt / 25
+                Case 2
+                    volt = (AD * 1525 + 521600) / 25600
+                    power = 75 * volt / 28
+            End Select
+            dbcmd.CommandText = "insert into 试验结果 values(" _
+                                    & _unit(unitNo).对位表(chippos) & "," _
+                                    & CByte(chippos Mod 4 + 1) & ",#" _
+                                    & time & "#," _
+                                    & Math.Floor(volt * 100) / 100 & "," _
+                                    & Math.Floor(power * 100) / 100 & ")"
+        End If
+
+        If _unit(unitNo).器件类型 = 0 And Not _unit(unitNo).电压流标记 Then '单位电压型
+            Select Case _unit(unitNo).电压流规格
+                Case 0 '21V
+                    volt = (AD * 1175 + 387200) / 25600
+                    power = 75 * volt / 21
+                Case 1 '25V
+                    volt = (AD * 1375 + 464000) / 25600
+                    power = 75 * volt / 25
+                Case 2 '28V
+                    volt = (AD * 1525 + 521600) / 25600
+                    power = 75 * volt / 28
+                Case 3 '16V GO11
+                    volt = (AD * 925 + 291200) / 25600
+                    power = 100 * volt / 16
+                    current = (AD1 * 125 + 48000) / 2560
+                Case 4 '5.5V GH137
+                    volt = (AD * 275 + 105600) / 25600
+            End Select
+            If unitNo <= 15 Then 'GH302
+                dbcmd.CommandText = "insert into 试验结果 values(" _
+                                    & _unit(unitNo).对位表(chippos) & "," _
+                                    & CByte(1) & ",#" _
+                                    & time & "#," _
+                                    & Math.Floor(volt * 100) / 100 & "," _
+                                    & Math.Floor(power * 100) / 100 & ")"
+            ElseIf unitNo <= 21 Then 'GO11 GHB302
+                dbcmd.CommandText = "insert into 试验结果 values(" _
+                                    & _unit(unitNo).对位表(chippos) & "," _
+                                    & CByte(1) & ",#" _
+                                    & time & "#," _
+                                    & Math.Floor(volt * 100) / 100 & "," _
+                                    & Math.Floor(power * 100) / 100 & "," _
+                                    & Math.Floor(current * 100) / 100 & ")"
+            ElseIf unitNo <= 23 Then 'GH137
+                dbcmd.CommandText = "insert into 试验结果 values(" _
+                                    & _unit(unitNo).对位表(chippos) & "," _
+                                    & CByte(1) & ",#" _
+                                    & time & "#," _
+                                    & Math.Floor(volt * 100) / 100 & "," _
+                                    & Math.Floor(power * 100) / 100 & "," _
+                                    & Math.Floor(current * 100) / 100 & ")" '这个还不对
+            End If
+
+
+        ElseIf _unit(unitNo).器件类型 = 0 And _unit(unitNo).电压流标记 Then '单位发光管
+            Select Case _unit(unitNo).电压流规格
+                Case 1 '10mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / 250
+                Case 2 '20mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / 125
+                Case 3 '30mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / (250 / 3)
+            End Select
+            '共阴AD测量值大于128修正
+            If (unitNo = 24 Or unitNo = 25 Or unitNo = 28 Or
+                unitNo = 29 Or unitNo = 30 Or unitNo = 31) And AD > 128 Then
+                current = current * 125 / 126
+            End If
+            dbcmd.CommandText = "insert into 试验结果 values(" _
+                              & _unit(unitNo).对位表(chippos) & "," _
+                              & CByte(chippos Mod 2 + 1) & ",#" _
+                              & time & "#," _
+                              & Math.Floor(current * 100) / 100 & ")"
+
+        ElseIf _unit(unitNo).器件类型 = 3 And _unit(unitNo).电压流标记 Then '独立发光管
+            Select Case _unit(unitNo).电压流规格
+                Case 1 '10mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / 250
+                Case 2 '20mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / 125
+                Case 3 '30mA
+                    current = ((AD - 128) / 4 / 256 * 5 + 2.5) * 1000 / (250 / 3)
+            End Select
+            '共阴AD测量值大于128修正
+            If (unitNo = 24 Or unitNo = 25 Or unitNo = 28 Or
+                unitNo = 29 Or unitNo = 30 Or unitNo = 31) And AD > 128 Then
+                current = current * 125 / 126
+            End If
+            dbcmd.CommandText = "insert into 试验结果 values(" _
+                              & _unit(unitNo).对位表(chippos) & "," _
+                              & CByte(1) & ",#" _
+                              & time & "#," _
+                              & Math.Floor(current * 100) / 100 & ")"
+        End If
+
         dbcmd.ExecuteNonQuery()
+
+        cn.Close()
     End Sub
 
     Public Shared Sub UpdateHour(ByVal unitNo As Byte, ByVal time As Date)
@@ -102,6 +220,9 @@ Public Class DBMethord
 
     Public Shared Sub UpdateTest(ByVal unitNo As Byte)
         Dim dbcmd As New OleDbCommand
+        Dim cnstr As String = "Provider=Microsoft.Ace.OleDb.12.0;Data Source=" _
+            & _unit(unitNo).结果文件 & ";Extended Properties='Excel 8.0'"
+        Dim cn As New OleDbConnection(cnstr)
         dbcmd.Connection = _DBconn
         dbcmd.CommandText = "update 单元状态 set 器件类型 = " & _unit(unitNo).器件类型 & _
                             ", 运行状态 = 0, 最近上传时间 = #" & Now & _
@@ -110,6 +231,15 @@ Public Class DBMethord
         dbcmd.ExecuteNonQuery()
         Dim vc As String = ""
         If _unit(unitNo).电压流标记 Then
+            Select Case _unit(unitNo).电压流规格
+                Case 1
+                    vc = "10mA"
+                Case 2
+                    vc = "20mA"
+                Case 3
+                    vc = "30mA"
+            End Select
+        Else
             Select Case _unit(unitNo).电压流规格
                 Case 0
                     vc = "21V"
@@ -122,33 +252,56 @@ Public Class DBMethord
                 Case 4
                     vc = "5.5V"
             End Select
-        Else
-            Select Case _unit(unitNo).电压流规格
-                Case 1
-                    vc = "10mA"
-                Case 2
-                    vc = "20mA"
-                Case 3
-                    vc = "30mA"
-            End Select
         End If
         dbcmd.CommandText = "insert into 试验记录 values('" & _unit(unitNo).试验编号 &
                             "', '" & _unit(unitNo).产品型号 &
                             "', '" & _unit(unitNo).生产批号 &
                             "', '" & _unit(unitNo).标准号 &
                             "', #" & _unit(unitNo).开机日期 &
-                            "#, '" & _unit(unitNo).操作员 &
+                            "#, '" & _unit(unitNo).结果文件 &
                             "', '" & _unit(unitNo).质量等级 &
                             "', '" & vc &
                             "', " & _unit(unitNo).上限 &
                             ", " & _unit(unitNo).下限 & ")"
         dbcmd.ExecuteNonQuery()
         For i = 0 To 95
-            dbcmd.CommandText = "update 对位表 set 器件编号 = " & _unit(unitNo).对位表(i) & _
-                                " where 老化单元号 = " & unitNo + 1 & _
+            dbcmd.CommandText = "update 对位表 set 器件编号 = " & _unit(unitNo).对位表(i) &
+                                " where 老化单元号 = " & unitNo + 1 &
                                 " and 老化位号 = " & i + 1
             dbcmd.ExecuteNonQuery()
         Next
+
+        cn.Open()
+        dbcmd.Connection = cn
+        dbcmd.CommandText =
+            "CREATE TABLE 试验信息 ([试验编号] VarChar,[产品型号] VarChar,[生产批号] VarChar, [质量等级] VarChar, [标准号] VarChar, [开机时间] DATE, [测试单元号] INTEGER)"
+        dbcmd.ExecuteNonQuery()
+        dbcmd.CommandText = "insert into 试验信息 values('" _
+                            & _unit(unitNo).试验编号 & "','" _
+                            & _unit(unitNo).产品型号 & "','" _
+                            & _unit(unitNo).生产批号 & "','" _
+                            & _unit(unitNo).质量等级 & "','" _
+                            & _unit(unitNo).标准号 & "',#" _
+                            & _unit(unitNo).开机日期 & "#," _
+                            & _unit(unitNo).address & ")"
+        dbcmd.ExecuteNonQuery()
+        If _unit(unitNo).电压流标记 Then
+            dbcmd.CommandText =
+                "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电流/mA] double)"
+        Else
+            If unitNo <= 15 Then
+                dbcmd.CommandText =
+                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [功率] double)"
+            ElseIf unitNo <= 21 Then
+                dbcmd.CommandText =
+                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [功率] double, [电流/mA] double)"
+            ElseIf unitNo <= 23 Then
+                dbcmd.CommandText =
+                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [次级电压/V] double)"
+            End If
+        End If
+            dbcmd.ExecuteNonQuery()
+        cn.Close()
     End Sub
 	
     Public Shared Sub UpdateRecallTime()

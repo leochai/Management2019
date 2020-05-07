@@ -98,20 +98,33 @@ Partial Public Class frmMain
                 Me.Invoke(New TextCallback(AddressOf showbyte), txtSend, RS485.outputbuffer, RS485.outputlength)
                 Thread.Sleep(300 + 120)
                 Dim cmd As Byte = RS485.ReadUp(_readBuffer)
-                If cmdBack <> &HFF Then
+                If cmd <> &HFF Then
                     Me.Invoke(New TextCallback(AddressOf showbyte), txtRecv, _readBuffer, CByte(_readBuffer(1) + 5))
                 End If
                 If cmd = LHSerialPort.cmdStartup Then
-                    If _unit(unitNo).Testing = &HC Then
+                    If _unit(unitNo).Testing = &HC Then '340继续
                         _unit(unitNo).Testing = 0
                         DBMethord.Update340(unitNo)
-                    Else
+                        Exit For
+                    Else                                '1000启动
                         With _unit(unitNo)
                             .Testing = &H0
                             .lastHour = Now.AddHours(-1)
                         End With
+                        If _commFlag.test660 Then
+                            DownloadCmd.LHTimeModify(RS485, _unit(unitNo), 10, 0, 340)
+                            Me.Invoke(New TextCallback(AddressOf showbyte), txtSend, RS485.outputbuffer, RS485.outputlength)
+                            Thread.Sleep(300 + 120)
+                            Dim cmd1 As Byte = RS485.ReadUp(_readBuffer)
+                            If cmd1 <> &HFF Then
+                                Me.Invoke(New TextCallback(AddressOf showbyte), txtRecv, _readBuffer, CByte(_readBuffer(1) + 5))
+                            End If
+                            If cmd1 = LHSerialPort.cmdLHTimeModify Then
+                                _commFlag.test660 = False
+                            End If
+                        End If
                         DBMethord.UpdateTest(unitNo)
-                        Exit Sub
+                        Exit For
                     End If
                 End If
             End If
@@ -178,7 +191,7 @@ Partial Public Class frmMain
             '上一日记录召回
             Select Case Date.Compare(_unit(k).lastHour.Date, lastdate.Date)
                 Case 0          '上次记录日期等于上一日日期，从上次记录时间开始往后召回
-                    For i = _unit(k).lastHour.Hour + 1 To 31
+                    For i = _unit(k).lastHour.Hour + 1 To 23
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -196,7 +209,7 @@ Partial Public Class frmMain
                     Next
                 Case -1         '上次记录日期小于上一日日期，召回整个上一日有效记录
                     _unit(k).lastHour = lastdate.AddHours(-1)
-                    For i = 0 To 31
+                    For i = 0 To 23
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -235,7 +248,7 @@ Partial Public Class frmMain
                     Next
                 Case -1         '上次记录日期小于上一日日期，召回整个当日有效记录
                     _unit(k).lastHour = thisdate.AddHours(-1)
-                    For i = 0 To 31
+                    For i = 0 To 23
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
                             DBMethord.UpdateRecallTime()
@@ -318,24 +331,32 @@ Partial Public Class frmMain
     End Sub
 
     Private Sub ReplyIntegral()
-        'Dim datalen As Byte = _readBuffer(1)
-        'Dim address As Byte = _readBuffer(3)
-        'Dim Data(datalen - 3) As Byte
-        'For j = 0 To datalen - 3
-        '    Data(j) = _readBuffer(j + 5)
-        'Next
+        Dim datalen As Byte = _readBuffer(1)
+        Dim address As Byte = _readBuffer(3)
+        Dim Data(datalen - 3) As Byte
+        For j = 0 To datalen - 3
+            Data(j) = _readBuffer(j + 5)
+        Next
 
-        'Dim i As Byte
-        'For i = 0 To 31
-        '    If address = _unit(i).address Then Exit For
-        'Next
+        Dim i As Byte
+        For i = 0 To 31
+            If address = _unit(i).address Then Exit For
+        Next
 
-        'Dim part As Byte = Data(0) >> 6
-        'Dim hour As Byte = Data(0) And &H1F
+        Dim part As Byte = Data(0) >> 6
+        Dim hour As Byte = Data(0) And &H1F
         'Dim time = _unit(i).lastHour
 
+        For k = 0 To 23
+            If _unit(i).对位表(k + part * 24) Then
+                Dim AD As Byte = Data(k + 1)
+                Dim pos As Byte = k + part * 24
+                DBMethord.WriteResult(i, pos, AD)
+            End If
+        Next
+
         'If _unit(i).器件类型 = 0 Then       '1位器件的数据压入
-        '    For k = 0 To 31
+        '    For k = 0 To 23
         '        If _unit(i).对位表(k + part * 24) Then
         '            Dim volt As Single, power As Single
         '            Select Case _unit(i).电压规格
@@ -352,16 +373,15 @@ Partial Public Class frmMain
         '                    volt = (Data(k + 1) * 925 + 291200) / 25600
         '                    power = 75 * volt / 16
         '            End Select
-
         '            DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24),
-        '                                  CByte(1), time, volt)
+        '                              CByte(1), time, volt)
         '        End If
         '    Next
         'End If
 
         'If _unit(i).器件类型 = 1 Then       '2位器件的数据压入
         '    Dim isFirst As Boolean = True
-        '    For k = 0 To 31
+        '    For k = 0 To 23
         '        If _unit(i).对位表(k + part * 24) Then
         '            Dim volt As Single, power As Single
         '            Select Case _unit(i).电压规格
@@ -389,26 +409,8 @@ Partial Public Class frmMain
         '    Next
         'End If
 
-        'If _unit(i).器件类型 = 2 Then       '4位器件的数据压入
-        '    For k = 0 To 31
-        '        If _unit(i).对位表(k + part * 24) Then
-        '            Dim volt As Single, power As Single
-        '            Select Case _unit(i).电压规格
-        '                Case 21
-        '                    volt = (Data(k + 1) * 1175 + 387200) / 25600
-        '                    power = 75 * volt / 21
-        '                Case 25
-        '                    volt = (Data(k + 1) * 1375 + 464000) / 25600
-        '                    power = 75 * volt / 25
-        '                Case 28
-        '                    volt = (Data(k + 1) * 1525 + 521600) / 25600
-        '                    power = 75 * volt / 28
-        '            End Select
+        'If _unit(i).座子类型 = 1 Then       '4位器件的数据压入
 
-        '            DBMethord.WriteResult(_unit(i).试验编号, _unit(i).对位表(k + part * 24),
-        '                                  CByte((k + part * 24) Mod 4 + 1), time, volt)
-        '        End If
-        '    Next
         'End If
     End Sub
 
@@ -487,7 +489,5 @@ Partial Public Class frmMain
             End If
         Next
     End Sub
-
-
 
 End Class

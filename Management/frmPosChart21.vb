@@ -1,14 +1,14 @@
 ﻿Imports LeoControls
 
-Public Class frmPosChart1
-    Dim cell(47) As OneCell
+Public Class frmPosChart21
+    Dim cell(47) As SingleCell
     Public unitNo As Byte
     Public pos(95) As Byte
 
     Private Sub frmPosChart1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         For j = 0 To 3
             For i = 0 To 11
-                cell(12 * j + i) = New OneCell
+                cell(12 * j + i) = New SingleCell
                 cell(12 * j + i).Left = 30 + 100 * i
                 cell(12 * j + i).Top = 40 + 140 * j
                 cell(12 * j + i).Parent = Me
@@ -31,19 +31,31 @@ Public Class frmPosChart1
         Dim a As String
 
         For i = 0 To 47
-            If cell(i).isUsed Then
-                If cell(i).CellNum = "" Then
+            If cell(i).isUsedL Then
+                If cell(i).CellLNum = "" Then
                     a = 1
                 Else
-                    a = cell(i).CellNum
+                    a = cell(i).CellLNum
+                End If
+                Exit For
+            End If
+            If cell(i).isUsedR Then
+                If cell(i).CellRNum = "" Then
+                    a = 1
+                Else
+                    a = cell(i).CellRNum
                 End If
                 Exit For
             End If
         Next
 
         For i = 0 To 47
-            If cell(i).isUsed Then
-                cell(i).CellNum = a
+            If cell(i).isUsedL Then
+                cell(i).CellLNum = a
+                a += 1
+            End If
+            If cell(i).isUsedR Then
+                cell(i).CellRNum = a
                 a += 1
             End If
         Next
@@ -51,10 +63,14 @@ Public Class frmPosChart1
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
         For i = 0 To 47
-            If cell(i).isUsed Then
-                pos(i * 2) = cell(i).CellNum
+            If cell(i).isUsedL Then
+                pos(i * 2) = cell(i).CellLNum
+            End If
+            If cell(i).isUsedR Then
+                pos(i * 2 + 1) = cell(i).CellRNum
             End If
         Next
+
         For i = 0 To 95
             If pos(i) <> 0 Then
                 For j = 0 To 95

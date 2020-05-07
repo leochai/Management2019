@@ -4,11 +4,7 @@
     Public Shared Sub Polling(ByVal com As LHSerialPort, ByVal unit As LHUnit)
         '轮询命令
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteOrdinary(unit.address)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
@@ -16,11 +12,7 @@
                                ByVal part As Byte, ByVal time As Byte)
         '整点召回
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteIntegral(unit.address, part, time)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
@@ -30,7 +22,7 @@
             Dim param As New prmDistribute
             If unit.电压流标记 Then
                 '电流型单元
-                param.type = (unit.器件类型 << 4) Or (unit.电压流规格 << 6) Or &B111
+                param.type = (unit.器件类型 << 4) Or (unit.电压流规格 << 6) Or &B111 And &B11110111
             Else
                 '电压型单元
                 param.type = (unit.器件类型 << 4) + unit.电压流规格
@@ -52,44 +44,28 @@
                     End If
                 Next
             Next
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteDistribute(unit.address, param)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
     Public Shared Sub Startup(ByVal com As LHSerialPort, ByVal unit As LHUnit)
         '启动单元
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteStartup(unit.address)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
     Public Shared Sub Reboot340(ByVal com As LHSerialPort, ByVal unit As LHUnit)
         '340状态重启单元
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteReboot340(unit.address)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
     Public Shared Sub Reboot(ByVal com As LHSerialPort, ByVal unit As LHUnit)
         '强制重启单元
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteReboot(unit.address)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
@@ -99,11 +75,7 @@
         Dim minute As Byte = Num2BCD(Now.Minute)
         dim second As Byte = Num2BCD(now.Second)
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteTimeModify(&H3F, second, minute, hour)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
@@ -117,22 +89,14 @@
         Dim minute1 As Byte = Num2BCD(minute)
 
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteLHTimeModify(unit.address, second1, minute1, lhour, hhour)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 
     Public Shared Sub Record(ByVal com As LHSerialPort, ByVal unit As LHUnit)
         '招记录信息
         SyncLock lock
-            'com.RtsEnable = True
-            'Threading.Thread.Sleep(_rts前沿)
             com.WriteRecord(unit.address)
-            'Threading.Thread.Sleep(_rts后沿)
-            'com.RtsEnable = False
         End SyncLock
     End Sub
 

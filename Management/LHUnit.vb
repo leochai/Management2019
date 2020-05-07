@@ -7,9 +7,9 @@
     Public 生产批号 As String
     Public 试验编号 As String
     Public 开机日期 As Date
-    Public 操作员 As String
+    Public 结果文件 As String
     Public 对位表(95) As Byte
-    Public 座子类型 As Boolean  '0-单位，1-四位
+    Public 座子类型 As Boolean  '0-8脚，1-16脚
     Public 上限 As Byte
     Public 下限 As Byte
     Public 器件类型 As Byte     '0-单位，1-双位，2-四位，3-独立

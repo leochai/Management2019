@@ -6,7 +6,6 @@ Public Class frmPosChart4
     Public pos(95) As Byte
 
     Private Sub frmPosChart4_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         For j = 0 To 3
             For i = 0 To 5
                 cell(6 * j + i) = New FourCell
@@ -81,7 +80,7 @@ Public Class frmPosChart4
 
     Private Sub btnAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAll.Click
         For i = 0 To 23
-            cell(i).isUsed = True
+            cell(i).SetTrue()
         Next
     End Sub
 End Class

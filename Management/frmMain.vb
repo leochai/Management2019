@@ -3,7 +3,7 @@ Imports System.Threading
 Imports LeoControls
 
 Public Class frmMain
-    Dim ShowList(31) As mainShow
+    Dim ShowList As New ArrayList
     Dim frmInt As New frmIntegral
     Public unitTemp As New LHUnit
 
@@ -13,30 +13,36 @@ Public Class frmMain
     Delegate Sub Polling_dg4(ByVal volt As Single, ByVal power As Single,
                              ByVal unitnum As Byte, ByVal cellnum As Byte, ByVal cellpos As Byte, ByVal over As Boolean)
     Delegate Sub ToolControl(ByVal obj As Object, ByVal enable As Boolean)
-
     Public RS485 As New LHSerialPort("COM3", 1200, Parity.Even, 8, 1)
-
     Dim CommThread As New Thread(AddressOf CommTask)
     Public Sub mToolControl(ByVal obj As System.Windows.Forms.Timer, ByVal enable As Boolean)
         obj.Enabled = enable
     End Sub
 
-
     Private Sub PaintShow()
         For k = 0 To 31
-            ShowList(k) = New mainShow
-            With ShowList(k)
+            Dim show As New mainShow
+            With show
+                .no = k
                 .Parent = GroupBox1
                 .Left = 5 + (k Mod 6) * 145
                 .Top = 15 + (k \ 6) * 85
                 .Enabled = True
                 .SetResult(k + 1, _unit(k).座子类型, _unit(k).电压流规格, _unit(k).Testing, _unit(k).试验编号)
             End With
+            AddHandler show.Click, AddressOf MainShowClick
+            ShowList.Add(show)
         Next
     End Sub '画界面
-
-
+    Private Sub MainShowClick(ByVal sender As Object, ByVal e As EventArgs)
+        If _unit(sender.no).Testing = &HC Then
+            Dim frm As New frm340
+            frm.unitNo = sender.no
+            frm.Show()
+        End If
+    End Sub '340继续试验
     Private Sub ThreadInit()
+        _commFlag.test660 = False
         _commFlag.polling = False
         _commFlag.startup = False
         _commFlag.integral = False
@@ -87,7 +93,7 @@ Public Class frmMain
         'Me.Enabled = False
 
         'Dim frm As New frm340
-        'frm.unitNo = 0
+        'frm.unitNo = 10
         'frm.Show()
     End Sub
 
@@ -99,11 +105,11 @@ Public Class frmMain
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '------遮挡
-        Dim fs As New frmRoot
-        'fs.BackColor = Color.FromArgb(204, 232, 207)
-        fs.Show()
-        fs.Label1.Text = "加载数据..."
-        fs.Refresh()
+        'Dim fs As New frmRoot
+        ''fs.BackColor = Color.FromArgb(204, 232, 207)
+        'fs.Show()
+        'fs.Label1.Text = "加载数据..."
+        'fs.Refresh()
 
         '------设置串口
         RS485.WriteBufferSize = 2048
@@ -131,7 +137,7 @@ Public Class frmMain
         '单元操作区初始化
         InitOperationZone()
 
-        fs.Close()
+        'fs.Close()
     End Sub
 
     Private Sub OneSec_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OneSec.Tick
@@ -148,7 +154,6 @@ Public Class frmMain
             _commFlag.polling = True
             i = (i + 1) Mod 24
         End If
-
     End Sub
 
     Private Sub OneMin_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OneMin.Tick
@@ -227,12 +232,6 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub btnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Dim unitNo As Byte = lbl单元编号.Text - 1
-        Dim frm As New frm340
-        'frm340.unitNo = unitNo
-        frm340.ShowDialog()
-    End Sub
 
     '--------------------------------------
     '单元操作区的操作逻辑放在此处
@@ -240,6 +239,19 @@ Public Class frmMain
     Private Sub cmbUnitNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUnitNo.SelectedIndexChanged
         If cmbUnitNo.SelectedIndex = -1 Then Exit Sub
         Dim unitNo As Byte = cmbUnitNo.SelectedIndex
+
+        If _unit(unitNo).Testing = 0 Then
+            MsgBox("该单元正在进行测试，请确认后重新选择。",, "提醒")
+            Exit Sub
+        End If
+
+        If _unit(unitNo).Testing = &HC Then
+            If MsgBox("该单元正在等待340小时后续试验，是否重新开始？",
+                    MsgBoxStyle.OkCancel, "提醒") = MsgBoxResult.Cancel Then
+                Exit Sub
+            End If
+        End If
+
         If _unit(unitNo).座子类型 Then
             lblWeishu.Text = "四 位"
         Else
@@ -289,7 +301,7 @@ Public Class frmMain
                     txtMax.Text = 5.7
                     txtMin.Text = 5.3
             End Select
-                    End If
+        End If
 
         Panel3.Enabled = True
         lblPos.Enabled = False
@@ -306,20 +318,28 @@ Public Class frmMain
     Private Sub lblPos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPos.Click
 
         If cmbChipWeishu.SelectedIndex = -1 Then
-            MsgBox("请先选择器件位数！")
+            MsgBox("请先选择器件类型！",, "提醒")
             Exit Sub
         End If
         If lblPos.Text = "器件插放完成" Then
             lblPos.Text = "点此插放器件"
             lblPos.ForeColor = Color.Red
         End If
-        If lblWeishu.Text = "四 位" And cmbChipWeishu.SelectedIndex = 1 Then '四位插双位
-            frmPosChart2.Show()
-        End If
-        If lblWeishu.Text = "四 位" And cmbChipWeishu.SelectedIndex = 2 Then '四位插四位
+
+        If cmbUnitNo.SelectedIndex >= 0 And cmbUnitNo.SelectedIndex <= 7 _
+            And cmbChipWeishu.SelectedIndex = 1 Then  '四位插四位
             frmPosChart4.Show()
         End If
-        If lblWeishu.Text = "一 位" And cmbChipWeishu.SelectedIndex = 0 Then '一位插一位
+        If cmbUnitNo.SelectedIndex >= 8 And cmbUnitNo.SelectedIndex <= 23 _
+            And cmbChipWeishu.SelectedIndex = 0 Then  '一位插一位
+            frmPosChart1.Show()
+        End If
+        If cmbUnitNo.SelectedIndex >= 24 And cmbUnitNo.SelectedIndex <= 31 _
+            And cmbChipWeishu.SelectedIndex = 2 Then  '独立发光管
+            frmPosChart21.Show()
+        End If
+        If cmbUnitNo.SelectedIndex >= 24 And cmbUnitNo.SelectedIndex <= 31 _
+            And cmbChipWeishu.SelectedIndex = 3 Then  '2位发光管
             frmPosChart1.Show()
         End If
     End Sub
@@ -373,20 +393,24 @@ Public Class frmMain
 
     Private Function float2byte(ByVal volt As String, ByVal limit As Single) As Byte
         Select Case volt
-            Case "21 V" : Return CByte((limit * 25600 - 387200) / 1175)
-            Case "25 V" : Return CByte((limit * 25600 - 464000) / 1375)
-            Case "28 V" : Return CByte((limit * 25600 - 521600) / 1525)
-            Case "16 V" : Return CByte((limit * 25600 - 521600) / 1525) '还不对
+            Case "21V" : Return CByte((limit * 25600 - 387200) / 1175)
+            Case "25V" : Return CByte((limit * 25600 - 464000) / 1375)
+            Case "28V" : Return CByte((limit * 25600 - 521600) / 1525)
+            Case "16V" : Return CByte((limit * 25600 - 291200) / 925)
+            Case "5.5V" : Return CByte((limit * 25600 - 105600) / 275)
+            Case "10mA" : Return CByte((limit * 250 / 1000 - 2.5) / 5 * 256 * 4 + 128)
+            Case "20mA" : Return CByte((limit * 125 / 1000 - 2.5) / 5 * 256 * 4 + 128)
+            Case "30mA" : Return CByte((limit * 250 / 3 / 1000 - 2.5) / 5 * 256 * 4 + 128)
         End Select
     End Function
 
     Private Sub btnStartOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnStartOK.Click
-        Dim pos(95) As Byte, 操作员 As String
+        Dim pos(95) As Byte
         pos = unitTemp.对位表
-        操作员 = unitTemp.操作员
         unitTemp = _unit(cmbUnitNo.SelectedIndex)
         With unitTemp
-            .操作员 = 操作员
+            .结果文件 = Application.StartupPath & "/试验结果/" &
+                txt试验编号.Text & "_" & Now.Date.ToLongDateString() & ".xls"
             .对位表 = pos
             .试验编号 = txt试验编号.Text
             .产品型号 = cmbType.Text
@@ -396,7 +420,15 @@ Public Class frmMain
             .上限 = float2byte(lblVolt.Text, txtMax.Text)
             .下限 = float2byte(lblVolt.Text, txtMin.Text)
             .开机日期 = Now.Date
-            .器件类型 = cmbChipWeishu.SelectedIndex
+            If cmbChipWeishu.SelectedIndex = 0 Then
+                .器件类型 = 0
+            ElseIf cmbChipWeishu.SelectedIndex = 1 Then
+                .器件类型 = 2
+            ElseIf cmbChipWeishu.SelectedIndex = 2 Then
+                .器件类型 = 3
+            ElseIf cmbChipWeishu.SelectedIndex = 3 Then
+                .器件类型 = 1
+            End If
 
         End With
 
@@ -404,7 +436,7 @@ Public Class frmMain
 
         _commFlag.unitNo_start = cmbUnitNo.SelectedIndex
         Select Case _unit(cmbUnitNo.SelectedIndex).Testing
-            Case &H0 : _commFlag.reboot = True
+            'Case &H0 : _commFlag.reboot = True
             Case &H3 : _commFlag.startup = True
             Case &HC : _commFlag.reboot340 = True
             Case &H30 : _commFlag.startup = True
