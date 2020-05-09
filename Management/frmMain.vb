@@ -407,6 +407,13 @@ Public Class frmMain
     Private Sub btnStartOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnStartOK.Click
         Dim pos(95) As Byte
         pos = unitTemp.对位表
+
+        If cmbChipWeishu.SelectedIndex = 3 And cmbUnitNo.SelectedIndex >= 24 Then
+            For i = 0 To 94 Step 2
+                pos(i + 1) = pos(i)
+            Next
+        End If
+
         unitTemp = _unit(cmbUnitNo.SelectedIndex)
         With unitTemp
             .结果文件 = Application.StartupPath & "/试验结果/" &
