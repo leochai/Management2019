@@ -129,6 +129,7 @@ Public Class DBMethord
                 Case 1 '25V
                     volt = (AD * 1375 + 464000) / 25600
                     power = 75 * volt / 25
+                    current = (AD1 * 125 + 48000) / 25600 * 1000 / 62.5 'GHB302
                 Case 2 '28V
                     volt = (AD * 1525 + 521600) / 25600
                     power = 75 * volt / 28
@@ -138,6 +139,8 @@ Public Class DBMethord
                     current = (AD1 * 125 + 48000) / 2560
                 Case 4 '5.5V GH137
                     volt = (AD * 275 + 105600) / 25600
+                    power = 75 * volt / 5.5
+                    current = (AD1 * 125 + 48000) / 25600 * 1000 / (250 / 3)
             End Select
             If unitNo <= 15 Then 'GH302
                 dbcmd.CommandText = "insert into 试验结果 values(" _
@@ -146,7 +149,7 @@ Public Class DBMethord
                                     & time & "#," _
                                     & Math.Floor(volt * 100) / 100 & "," _
                                     & Math.Floor(power * 100) / 100 & ")"
-            ElseIf unitNo <= 21 Then 'GO11 GHB302
+            ElseIf unitNo <= 23 Then 'GO11 GHB302 GH137
                 dbcmd.CommandText = "insert into 试验结果 values(" _
                                     & _unit(unitNo).对位表(chippos) & "," _
                                     & CByte(1) & ",#" _
@@ -154,16 +157,8 @@ Public Class DBMethord
                                     & Math.Floor(volt * 100) / 100 & "," _
                                     & Math.Floor(power * 100) / 100 & "," _
                                     & Math.Floor(current * 100) / 100 & ")"
-            ElseIf unitNo <= 23 Then 'GH137
-                dbcmd.CommandText = "insert into 试验结果 values(" _
-                                    & _unit(unitNo).对位表(chippos) & "," _
-                                    & CByte(1) & ",#" _
-                                    & time & "#," _
-                                    & Math.Floor(volt * 100) / 100 & "," _
-                                    & Math.Floor(power * 100) / 100 & "," _
-                                    & Math.Floor(current * 100) / 100 & ")" '这个还不对
-            End If
 
+            End If
 
         ElseIf _unit(unitNo).器件类型 = 0 And _unit(unitNo).电压流标记 Then '单位发光管
             Select Case _unit(unitNo).电压流规格
@@ -292,12 +287,9 @@ Public Class DBMethord
             If unitNo <= 15 Then
                 dbcmd.CommandText =
                     "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [功率] double)"
-            ElseIf unitNo <= 21 Then
-                dbcmd.CommandText =
-                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [功率] double, [电流/mA] double)"
             ElseIf unitNo <= 23 Then
                 dbcmd.CommandText =
-                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [次级电压/V] double)"
+                    "CREATE TABLE 试验结果 ([器件编号] integer,[管芯号] integer,[记录时间] date, [电压/V] double, [功率] double, [电流/mA] double)"
             End If
         End If
             dbcmd.ExecuteNonQuery()

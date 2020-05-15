@@ -98,9 +98,16 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+    End Sub
+    Private Sub frmMain_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         _DBconn.Close()
-        CommThread.Abort()
+        If CommThread.IsAlive() Then
+            CommThread.Abort()
+        End If
+        MsgBox("haha")
         RS485.Close()
+        MsgBox("hehe")
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -116,12 +123,13 @@ Public Class frmMain
         RS485.ReadTimeout = 200
         RS485.ReceivedBytesThreshold = 3
         RS485.RtsEnable = True
-        'try
-        '    rs485.open()
-        'catch ex as exception
-        '    msgbox("请检查串口连接后再打开程序！")
-        '    me.close()
-        'end try
+        Try
+            RS485.Open()
+        Catch ex As Exception
+            MsgBox("请检查串口连接后再打开程序！")
+            Me.Close()
+
+        End Try
 
         '------打开数据库，初始化单元对象
         _DBconn.Open()
@@ -131,8 +139,8 @@ Public Class frmMain
         DBMethord.Initial(_DBconn, _unit)
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
-        'OneSec.Enabled = True
-        'OneMin.Enabled = True
+        OneSec.Enabled = True
+        OneMin.Enabled = True
 
         '单元操作区初始化
         InitOperationZone()
@@ -408,7 +416,7 @@ Public Class frmMain
         Dim pos(95) As Byte
         pos = unitTemp.对位表
 
-        If cmbChipWeishu.SelectedIndex = 3 And cmbUnitNo.SelectedIndex >= 24 Then
+        If cmbChipWeishu.SelectedIndex = 3 And cmbUnitNo.SelectedIndex >= 24 Then '发光二极管独立器件
             For i = 0 To 94 Step 2
                 pos(i + 1) = pos(i)
             Next
@@ -451,5 +459,6 @@ Public Class frmMain
 
         InitOperationZone()
     End Sub
+
 
 End Class

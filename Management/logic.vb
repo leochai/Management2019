@@ -351,7 +351,7 @@ Partial Public Class frmMain
             If _unit(i).对位表(k + part * 24) Then
                 Dim AD As Byte = Data(k + 1)
                 Dim AD1 As Byte = 0
-                If i >= 16 And i <= 23 Then  '这里的判据可能要修改
+                If i >= 16 And i <= 23 Then
                     AD1 = Data(k + 2)
                 End If
                 Dim pos As Byte = k + part * 24
