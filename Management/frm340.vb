@@ -35,7 +35,37 @@
                     lblpos.Add(lbl)
                 Next
             Next
-        Else
+        ElseIf _unit(unitNo).器件类型 = 3 And unitNo >= 24 Then '独立器件
+            Me.Width = 1550
+            Me.Height = 300
+            Label1.Left = (Me.Width - Label1.Width) / 2
+            btnOk.Left = 1380
+            btnCancel.Left = 1450
+            For j = 0 To 3
+                For i = 0 To 23
+                    Dim lbl As New Label
+                    With lbl
+                        .Width = 60
+                        .Height = 40
+                        .Left = 60 * i + 50
+                        .Top = 40 * j + 50
+                        .TabIndex = j * 12 + i
+                        .BorderStyle = BorderStyle.FixedSingle
+                        .Parent = Me
+                        .TextAlign = ContentAlignment.MiddleCenter
+                        If _unit(unitNo).对位表(j * 24 + i) <> 0 Then
+                            .Text = _unit(unitNo).对位表(j * 12 + i)
+                        Else
+                            .Text = ""
+                        End If
+                        .ForeColor = Color.Blue
+                        .Font = New Font("微软雅黑", 12)
+                    End With
+                    AddHandler lbl.Click, AddressOf LblControlArrayClick
+                    lblpos.Add(lbl)
+                Next
+            Next
+        Else '单位器件
             Me.Width = 830
             Me.Height = 300
             Label1.Left = (Me.Width - Label1.Width) / 2
@@ -96,6 +126,12 @@
                     _unit(unitNo).对位表(i * 4 + 1) = 0
                     _unit(unitNo).对位表(i * 4 + 2) = 0
                     _unit(unitNo).对位表(i * 4 + 3) = 0
+                End If
+            Next
+        ElseIf _unit(unitNo).器件类型 = 3 And unitNo >= 24 Then
+            For i = 0 To 95
+                If lblpos(i).Forecolor = Color.Red Then
+                    _unit(unitNo).对位表(i) = 0
                 End If
             Next
         Else

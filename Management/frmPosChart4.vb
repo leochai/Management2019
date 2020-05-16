@@ -52,7 +52,12 @@ Public Class frmPosChart4
         Next
     End Sub
     Private Sub btnOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnOK.Click
-
+        For i = 0 To 23
+            If cell(i).isUsed And cell(i).CellNum = "" Then
+                MsgBox("有未编号器件，请点击自动编号",, "提醒")
+                Exit Sub
+            End If
+        Next
         For i = 0 To 23
             For j = 0 To 3
                 If cell(i).isUsed Then

@@ -63,6 +63,16 @@ Public Class frmPosChart21
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
         For i = 0 To 47
+            If cell(i).isUsedL And cell(i).CellLNum = "" Then
+                MsgBox("有未编号器件，请点击自动编号",, "提醒")
+                Exit Sub
+            End If
+            If cell(i).isUsedR And cell(i).CellRNum = "" Then
+                MsgBox("有未编号器件，请点击自动编号",, "提醒")
+                Exit Sub
+            End If
+        Next
+        For i = 0 To 47
             If cell(i).isUsedL Then
                 pos(i * 2) = cell(i).CellLNum
             End If

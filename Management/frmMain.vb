@@ -1,4 +1,5 @@
-﻿Imports System.IO.Ports
+﻿Imports System.ComponentModel
+Imports System.IO.Ports
 Imports System.Threading
 Imports LeoControls
 
@@ -13,7 +14,7 @@ Public Class frmMain
     Delegate Sub Polling_dg4(ByVal volt As Single, ByVal power As Single,
                              ByVal unitnum As Byte, ByVal cellnum As Byte, ByVal cellpos As Byte, ByVal over As Boolean)
     Delegate Sub ToolControl(ByVal obj As Object, ByVal enable As Boolean)
-    Public RS485 As New LHSerialPort("COM3", 1200, Parity.Even, 8, 1)
+    Public RS485 As New LHSerialPort("COM5", 1200, Parity.Even, 8, 1)
     Dim CommThread As New Thread(AddressOf CommTask)
     Public Sub mToolControl(ByVal obj As System.Windows.Forms.Timer, ByVal enable As Boolean)
         obj.Enabled = enable
@@ -28,7 +29,7 @@ Public Class frmMain
                 .Left = 5 + (k Mod 6) * 145
                 .Top = 15 + (k \ 6) * 85
                 .Enabled = True
-                .SetResult(k + 1, _unit(k).座子类型, _unit(k).电压流规格, _unit(k).Testing, _unit(k).试验编号)
+                .SetResult(k + 1, _unit(k).座子类型, _unit(k).电压流标记, _unit(k).电压流规格, _unit(k).Testing, _unit(k).试验编号)
             End With
             AddHandler show.Click, AddressOf MainShowClick
             ShowList.Add(show)
@@ -97,17 +98,20 @@ Public Class frmMain
         'frm.Show()
     End Sub
 
-    Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-    End Sub
-    Private Sub frmMain_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+    Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         _DBconn.Close()
-        If CommThread.IsAlive() Then
+        OneMin.Enabled = False
+        OneSec.Enabled = False
+        If CommThread.IsAlive Then
+            'MsgBox("thread")
             CommThread.Abort()
         End If
-        MsgBox("haha")
-        RS485.Close()
-        MsgBox("hehe")
+
+        If RS485.IsOpen Then
+            'MsgBox("rs485")
+            RS485.Close()
+        End If
+
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -123,13 +127,13 @@ Public Class frmMain
         RS485.ReadTimeout = 200
         RS485.ReceivedBytesThreshold = 3
         RS485.RtsEnable = True
-        Try
-            RS485.Open()
-        Catch ex As Exception
-            MsgBox("请检查串口连接后再打开程序！")
-            Me.Close()
-
-        End Try
+        'Try
+        '    RS485.Open()
+        'Catch ex As Exception
+        '    MsgBox("请检查串口连接后再打开程序！",, "提醒")
+        '    Me.Close()
+        '    System.Environment.Exit(0)
+        'End Try
 
         '------打开数据库，初始化单元对象
         _DBconn.Open()
@@ -139,8 +143,8 @@ Public Class frmMain
         DBMethord.Initial(_DBconn, _unit)
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
-        OneSec.Enabled = True
-        OneMin.Enabled = True
+        'OneSec.Enabled = True
+        'OneMin.Enabled = True
 
         '单元操作区初始化
         InitOperationZone()

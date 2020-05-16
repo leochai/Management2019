@@ -90,7 +90,7 @@ Partial Class frmPosChart4
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnAuto)
         Me.Name = "frmPosChart4"
-        Me.Text = "frmPosChart4"
+        Me.Text = "插放器件"
         Me.ResumeLayout(False)
 
     End Sub
