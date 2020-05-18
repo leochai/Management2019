@@ -90,7 +90,7 @@ Partial Public Class frmMain
                 Me.Invoke(New TextCallback(AddressOf showbyte), txtRecv, _readBuffer, CByte(_readBuffer(1) + 5))
             End If
             If cmdBack = LHSerialPort.cmdNotSame Then
-                MsgBox("器件类型与老化单元不符，请检查后重新启动！")
+                MsgBox("器件类型与老化单元不符，请检查后重新启动！",, "提醒")
                 Exit Sub
             End If
             If cmdBack = LHSerialPort.cmdDistribute Then  '应该分340继续和正常启动两种情况
@@ -434,7 +434,7 @@ Partial Public Class frmMain
                 Me.Invoke(New TextCallback(AddressOf showbyte), txtRecv, _readBuffer, CByte(_readBuffer(1) + 5))
             End If
             If cmdBack = LHSerialPort.cmdNotSame Then
-                MsgBox("器件类型与老化单元不符，请检查后重新启动！")
+                MsgBox("器件类型与老化单元不符，请检查后重新启动！",, "提醒")
                 Exit Sub
             End If
             If cmdBack = LHSerialPort.cmdDistribute Then
@@ -450,7 +450,7 @@ Partial Public Class frmMain
                         .Testing = &H0
                         .lastHour = Now.AddHours(-1)
                     End With
-                    MsgBox("强制重启成功！")
+                    MsgBox("强制重启成功！",, "提醒")
                     DBMethord.UpdateTest(unitNo)
                     Exit Sub
                 End If
@@ -469,7 +469,7 @@ Partial Public Class frmMain
                 Me.Invoke(New TextCallback(AddressOf showbyte), txtRecv, _readBuffer, CByte(_readBuffer(1) + 5))
             End If
             If cmdBack = LHSerialPort.cmdNotSame Then
-                MsgBox("器件类型与老化单元不符，请检查后重新启动！")
+                MsgBox("器件类型与老化单元不符，请检查后重新启动！",, "提醒")
                 Exit Sub
             End If
             If cmdBack = LHSerialPort.cmdDistribute Then
@@ -485,7 +485,7 @@ Partial Public Class frmMain
                         .Testing = &H0
                         .lastHour = Now.AddHours(-1)
                     End With
-                    MsgBox("放弃340小时后试验并重启成功！")
+                    MsgBox("放弃340小时后试验并重启成功！",, "提醒")
                     '还未写回数据库
                     DBMethord.UpdateTest(unitNo)
                     Exit Sub

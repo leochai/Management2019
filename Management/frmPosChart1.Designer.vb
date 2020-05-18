@@ -91,7 +91,7 @@ Partial Class frmPosChart1
         Me.Controls.Add(Me.btnAuto)
         Me.Name = "frmPosChart1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "frmPosChart1"
+        Me.Text = "插放器件"
         Me.ResumeLayout(False)
 
     End Sub

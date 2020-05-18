@@ -32,10 +32,9 @@ Partial Class frmPosChart21
         'btnAll
         '
         Me.btnAll.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnAll.Location = New System.Drawing.Point(1208, 1074)
-        Me.btnAll.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.btnAll.Location = New System.Drawing.Point(659, 614)
         Me.btnAll.Name = "btnAll"
-        Me.btnAll.Size = New System.Drawing.Size(154, 47)
+        Me.btnAll.Size = New System.Drawing.Size(84, 27)
         Me.btnAll.TabIndex = 54
         Me.btnAll.Text = "全   选"
         Me.btnAll.UseVisualStyleBackColor = True
@@ -43,10 +42,9 @@ Partial Class frmPosChart21
         'btnExit
         '
         Me.btnExit.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnExit.Location = New System.Drawing.Point(2072, 1074)
-        Me.btnExit.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.btnExit.Location = New System.Drawing.Point(1130, 614)
         Me.btnExit.Name = "btnExit"
-        Me.btnExit.Size = New System.Drawing.Size(154, 47)
+        Me.btnExit.Size = New System.Drawing.Size(84, 27)
         Me.btnExit.TabIndex = 50
         Me.btnExit.Text = "退   出"
         Me.btnExit.UseVisualStyleBackColor = True
@@ -54,10 +52,9 @@ Partial Class frmPosChart21
         'btnOK
         '
         Me.btnOK.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(1887, 1074)
-        Me.btnOK.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.btnOK.Location = New System.Drawing.Point(1029, 614)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(154, 47)
+        Me.btnOK.Size = New System.Drawing.Size(84, 27)
         Me.btnOK.TabIndex = 51
         Me.btnOK.Text = "确   定"
         Me.btnOK.UseVisualStyleBackColor = True
@@ -65,10 +62,9 @@ Partial Class frmPosChart21
         'btnReset
         '
         Me.btnReset.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnReset.Location = New System.Drawing.Point(1573, 1074)
-        Me.btnReset.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.btnReset.Location = New System.Drawing.Point(858, 614)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(154, 47)
+        Me.btnReset.Size = New System.Drawing.Size(84, 27)
         Me.btnReset.TabIndex = 52
         Me.btnReset.Text = "重   置"
         Me.btnReset.UseVisualStyleBackColor = True
@@ -76,26 +72,26 @@ Partial Class frmPosChart21
         'btnAuto
         '
         Me.btnAuto.Font = New System.Drawing.Font("宋体", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnAuto.Location = New System.Drawing.Point(1393, 1074)
-        Me.btnAuto.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
+        Me.btnAuto.Location = New System.Drawing.Point(760, 614)
         Me.btnAuto.Name = "btnAuto"
-        Me.btnAuto.Size = New System.Drawing.Size(154, 47)
+        Me.btnAuto.Size = New System.Drawing.Size(84, 27)
         Me.btnAuto.TabIndex = 53
         Me.btnAuto.Text = "自动编码"
         Me.btnAuto.UseVisualStyleBackColor = True
         '
         'frmPosChart21
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 21.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(2317, 1194)
+        Me.ClientSize = New System.Drawing.Size(875, 503)
         Me.Controls.Add(Me.btnAll)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnAuto)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "frmPosChart21"
-        Me.Text = "frmPosChart21"
+        Me.Text = "插放器件"
         Me.ResumeLayout(False)
 
     End Sub

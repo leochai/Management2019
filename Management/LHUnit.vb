@@ -3,7 +3,7 @@
     Public 质量等级 As String
     Public 标准号 As String
     Public 电压流标记 As Boolean '0-电压, 1-电流
-    Public 电压流规格 As Byte '0-21V,1-25V(10mA),2-28V(20mA),3-16V(11mA)，4-5.5V
+    Public 电压流规格 As Byte '0-21V,1-25V(10mA),2-28V(20mA),3-16V(30mA)，4-5.5V
     Public 生产批号 As String
     Public 试验编号 As String
     Public 开机日期 As Date

@@ -66,7 +66,7 @@ Partial Class frm340
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frm340"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frm340"
+        Me.Text = "340小时后续试验"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

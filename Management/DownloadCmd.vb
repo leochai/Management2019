@@ -22,7 +22,7 @@
             Dim param As New prmDistribute
             If unit.电压流标记 Then
                 '电流型单元
-                param.type = (unit.器件类型 << 4) Or (unit.电压流规格 << 6) Or &B111 And &B11110111
+                param.type = (unit.电压流规格 << 6) + (unit.器件类型 << 4) + 7
             Else
                 '电压型单元
                 param.type = (unit.器件类型 << 4) + unit.电压流规格
