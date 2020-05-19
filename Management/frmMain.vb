@@ -447,7 +447,7 @@ Public Class frmMain
             ElseIf cmbChipWeishu.SelectedIndex = 2 Then
                 .器件类型 = 3
             ElseIf cmbChipWeishu.SelectedIndex = 3 Then
-                .器件类型 = 3
+                .器件类型 = 0
             End If
 
         End With
@@ -455,6 +455,8 @@ Public Class frmMain
         _unit(cmbUnitNo.SelectedIndex) = unitTemp
 
         _commFlag.unitNo_start = cmbUnitNo.SelectedIndex
+        _commFlag.test660 = chb660.Checked
+
         Select Case _unit(cmbUnitNo.SelectedIndex).Testing
             'Case &H0 : _commFlag.reboot = True
             Case &H3 : _commFlag.startup = True

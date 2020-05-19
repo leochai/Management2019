@@ -65,6 +65,9 @@ Partial Public Class frmMain
                     If _unit(i).address = address Then
                         _unit(i).Testing = &HC
                         DBMethord.UpdateStates(i, _unit(i).Testing)
+                        ShowList.Item(i).SetResult(i + 1, _unit(i).座子类型,
+                                                   _unit(i).电压流标记, _unit(i).电压流规格,
+                                                   _unit(i).Testing, _unit(i).试验编号)
                         Exit For
                     End If
                 Next
@@ -73,6 +76,9 @@ Partial Public Class frmMain
                     If _unit(i).address = address Then
                         _unit(i).Testing = &H30
                         DBMethord.UpdateStates(i, _unit(i).Testing)
+                        ShowList.Item(i).SetResult(i + 1, _unit(i).座子类型,
+                                                   _unit(i).电压流标记, _unit(i).电压流规格,
+                                                   _unit(i).Testing, _unit(i).试验编号)
                         Exit For
                     End If
                 Next
@@ -105,6 +111,9 @@ Partial Public Class frmMain
                     If _unit(unitNo).Testing = &HC Then '340继续
                         _unit(unitNo).Testing = 0
                         DBMethord.Update340(unitNo)
+                        ShowList.Item(unitNo).SetResult(unitNo + 1, _unit(unitNo).座子类型,
+                                                   _unit(unitNo).电压流标记, _unit(unitNo).电压流规格,
+                                                   _unit(unitNo).Testing, _unit(unitNo).试验编号)
                         Exit For
                     Else                                '1000启动
                         With _unit(unitNo)
@@ -124,6 +133,9 @@ Partial Public Class frmMain
                             End If
                         End If
                         DBMethord.UpdateTest(unitNo)
+                        ShowList.Item(unitNo).SetResult(unitNo + 1, _unit(unitNo).座子类型,
+                                                   _unit(unitNo).电压流标记, _unit(unitNo).电压流规格,
+                                                   _unit(unitNo).Testing, _unit(unitNo).试验编号)
                         Exit For
                     End If
                 End If

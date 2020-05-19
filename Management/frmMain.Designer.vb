@@ -63,6 +63,7 @@ Partial Class frmMain
         Me.txtRecv = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txtSend = New System.Windows.Forms.TextBox()
+        Me.chb660 = New System.Windows.Forms.CheckBox()
         Me.grp操作.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -93,6 +94,7 @@ Partial Class frmMain
         'grp操作
         '
         Me.grp操作.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(207, Byte), Integer))
+        Me.grp操作.Controls.Add(Me.chb660)
         Me.grp操作.Controls.Add(Me.Panel4)
         Me.grp操作.Controls.Add(Me.Panel3)
         Me.grp操作.Controls.Add(Me.Panel2)
@@ -453,6 +455,16 @@ Partial Class frmMain
         Me.txtSend.TabIndex = 46
         Me.txtSend.Visible = False
         '
+        'chb660
+        '
+        Me.chb660.AutoSize = True
+        Me.chb660.Location = New System.Drawing.Point(38, 493)
+        Me.chb660.Name = "chb660"
+        Me.chb660.Size = New System.Drawing.Size(173, 18)
+        Me.chb660.TabIndex = 33
+        Me.chb660.Text = "是否只进行660小时试验"
+        Me.chb660.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -468,6 +480,7 @@ Partial Class frmMain
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "光电耦合器寿命台管理软件"
         Me.grp操作.ResumeLayout(False)
+        Me.grp操作.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -520,4 +533,5 @@ Partial Class frmMain
     Friend WithEvents txtSend As TextBox
     Friend WithEvents cmbChipWeishu As ComboBox
     Friend WithEvents cmbType As ComboBox
+    Friend WithEvents chb660 As CheckBox
 End Class
