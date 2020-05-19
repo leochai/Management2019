@@ -14,7 +14,7 @@ Public Class frmMain
     Delegate Sub Polling_dg4(ByVal volt As Single, ByVal power As Single,
                              ByVal unitnum As Byte, ByVal cellnum As Byte, ByVal cellpos As Byte, ByVal over As Boolean)
     Delegate Sub ToolControl(ByVal obj As Object, ByVal enable As Boolean)
-    Public RS485 As New LHSerialPort("COM3", 1200, Parity.Even, 8, 1)
+    Public RS485 As New LHSerialPort("COM5", 1200, Parity.Even, 8, 1)
     Dim CommThread As New Thread(AddressOf CommTask)
     Public Sub mToolControl(ByVal obj As System.Windows.Forms.Timer, ByVal enable As Boolean)
         obj.Enabled = enable
@@ -127,6 +127,7 @@ Public Class frmMain
         RS485.ReadTimeout = 200
         RS485.ReceivedBytesThreshold = 3
         RS485.RtsEnable = True
+
         Try
             RS485.Open()
         Catch ex As Exception
@@ -143,8 +144,9 @@ Public Class frmMain
         DBMethord.Initial(_DBconn, _unit)
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
+
         OneSec.Enabled = True
-        'OneMin.Enabled = True
+        OneSec.Enabled = True
 
         '单元操作区初始化
         InitOperationZone()
@@ -158,9 +160,9 @@ Public Class frmMain
         If Now.Minute >= 1 And Now.Minute <= 58 Then
             Dim j As Byte = 0
             While _unit(i).Testing <> 0
-                i = (i + 1) Mod 24
+                i = (i + 1) Mod 32
                 j += 1
-                If j >= 24 Then Exit Sub
+                If j >= 32 Then Exit Sub
             End While '跳过停止的单元
             _commFlag.unitNo_polling = i
             _commFlag.polling = True
@@ -242,7 +244,6 @@ Public Class frmMain
         txtRecv.SelectionStart = txtRecv.TextLength
         txtRecv.ScrollToCaret()
     End Sub
-
 
 
     '--------------------------------------
@@ -446,7 +447,7 @@ Public Class frmMain
             ElseIf cmbChipWeishu.SelectedIndex = 2 Then
                 .器件类型 = 3
             ElseIf cmbChipWeishu.SelectedIndex = 3 Then
-                .器件类型 = 0
+                .器件类型 = 3
             End If
 
         End With
