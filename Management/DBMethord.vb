@@ -89,6 +89,8 @@ Public Class DBMethord
     'End Sub
 
     Public Shared Sub WriteResult(ByVal unitNo As Byte, ByVal chippos As Byte, ByVal AD As Byte， AD1 As Byte)
+        If _unit(unitNo).结果文件 = "" Then Exit Sub
+
         Dim cn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" _
             & _unit(unitNo).结果文件 & ";Extended Properties='Excel 8.0'")
         Dim dbcmd As New OleDbCommand
@@ -98,6 +100,7 @@ Public Class DBMethord
         time = _unit(unitNo).lastHour
         time = time.AddSeconds(-time.Second)
         time = time.AddMinutes(-time.Minute)
+
 
         cn.Open()
 
