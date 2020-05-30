@@ -83,13 +83,13 @@ Partial Class frmPosChart21
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(875, 503)
+        Me.ClientSize = New System.Drawing.Size(1239, 653)
         Me.Controls.Add(Me.btnAll)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnAuto)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmPosChart21"
         Me.Text = "插放器件"
         Me.ResumeLayout(False)

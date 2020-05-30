@@ -27,10 +27,10 @@ Partial Class frmMain
         Me.OneMin = New System.Windows.Forms.Timer(Me.components)
         Me.Label35 = New System.Windows.Forms.Label()
         Me.grp操作 = New System.Windows.Forms.GroupBox()
+        Me.chb660 = New System.Windows.Forms.CheckBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.txt质量等级 = New System.Windows.Forms.TextBox()
         Me.txt生产批号 = New System.Windows.Forms.TextBox()
-        Me.txt标准号 = New System.Windows.Forms.TextBox()
+        Me.txt试验员 = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.txt试验编号 = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -63,7 +63,6 @@ Partial Class frmMain
         Me.txtRecv = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txtSend = New System.Windows.Forms.TextBox()
-        Me.chb660 = New System.Windows.Forms.CheckBox()
         Me.grp操作.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -111,11 +110,20 @@ Partial Class frmMain
         Me.grp操作.TabStop = False
         Me.grp操作.Text = "试验操作区"
         '
+        'chb660
+        '
+        Me.chb660.AutoSize = True
+        Me.chb660.Location = New System.Drawing.Point(38, 493)
+        Me.chb660.Name = "chb660"
+        Me.chb660.Size = New System.Drawing.Size(173, 18)
+        Me.chb660.TabIndex = 33
+        Me.chb660.Text = "是否只进行660小时试验"
+        Me.chb660.UseVisualStyleBackColor = True
+        '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.txt质量等级)
         Me.Panel4.Controls.Add(Me.txt生产批号)
-        Me.Panel4.Controls.Add(Me.txt标准号)
+        Me.Panel4.Controls.Add(Me.txt试验员)
         Me.Panel4.Controls.Add(Me.Label19)
         Me.Panel4.Controls.Add(Me.txt试验编号)
         Me.Panel4.Controls.Add(Me.Label23)
@@ -126,13 +134,6 @@ Partial Class frmMain
         Me.Panel4.Size = New System.Drawing.Size(265, 131)
         Me.Panel4.TabIndex = 26
         '
-        'txt质量等级
-        '
-        Me.txt质量等级.Location = New System.Drawing.Point(109, 102)
-        Me.txt质量等级.Name = "txt质量等级"
-        Me.txt质量等级.Size = New System.Drawing.Size(133, 23)
-        Me.txt质量等级.TabIndex = 16
-        '
         'txt生产批号
         '
         Me.txt生产批号.Location = New System.Drawing.Point(109, 38)
@@ -140,21 +141,20 @@ Partial Class frmMain
         Me.txt生产批号.Size = New System.Drawing.Size(133, 23)
         Me.txt生产批号.TabIndex = 15
         '
-        'txt标准号
+        'txt试验员
         '
-        Me.txt标准号.Location = New System.Drawing.Point(109, 71)
-        Me.txt标准号.Name = "txt标准号"
-        Me.txt标准号.Size = New System.Drawing.Size(133, 23)
-        Me.txt标准号.TabIndex = 14
+        Me.txt试验员.Location = New System.Drawing.Point(109, 71)
+        Me.txt试验员.Name = "txt试验员"
+        Me.txt试验员.Size = New System.Drawing.Size(133, 23)
+        Me.txt试验员.TabIndex = 14
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(22, 105)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(63, 14)
+        Me.Label19.Size = New System.Drawing.Size(0, 14)
         Me.Label19.TabIndex = 13
-        Me.Label19.Text = "质量等级"
         '
         'txt试验编号
         '
@@ -170,7 +170,7 @@ Partial Class frmMain
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(49, 14)
         Me.Label23.TabIndex = 11
-        Me.Label23.Text = "标准号"
+        Me.Label23.Text = "试验员"
         '
         'Label24
         '
@@ -223,7 +223,7 @@ Partial Class frmMain
         'cmbChipWeishu
         '
         Me.cmbChipWeishu.FormattingEnabled = True
-        Me.cmbChipWeishu.Items.AddRange(New Object() {"1芯光耦", "4芯光耦", "1芯发光管", "2芯发光管"})
+        Me.cmbChipWeishu.Items.AddRange(New Object() {"1位光耦", "4位光耦", "单色发光管", "双色发光管"})
         Me.cmbChipWeishu.Location = New System.Drawing.Point(90, 43)
         Me.cmbChipWeishu.Name = "cmbChipWeishu"
         Me.cmbChipWeishu.Size = New System.Drawing.Size(79, 22)
@@ -455,16 +455,6 @@ Partial Class frmMain
         Me.txtSend.TabIndex = 46
         Me.txtSend.Visible = False
         '
-        'chb660
-        '
-        Me.chb660.AutoSize = True
-        Me.chb660.Location = New System.Drawing.Point(38, 493)
-        Me.chb660.Name = "chb660"
-        Me.chb660.Size = New System.Drawing.Size(173, 18)
-        Me.chb660.TabIndex = 33
-        Me.chb660.Text = "是否只进行660小时试验"
-        Me.chb660.UseVisualStyleBackColor = True
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -498,9 +488,8 @@ Partial Class frmMain
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents grp操作 As GroupBox
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents txt质量等级 As TextBox
     Friend WithEvents txt生产批号 As TextBox
-    Friend WithEvents txt标准号 As TextBox
+    Friend WithEvents txt试验员 As TextBox
     Friend WithEvents Label19 As Label
     Friend WithEvents txt试验编号 As TextBox
     Friend WithEvents Label23 As Label

@@ -14,7 +14,7 @@ Public Class frmMain
     Delegate Sub Polling_dg4(ByVal volt As Single, ByVal power As Single,
                              ByVal unitnum As Byte, ByVal cellnum As Byte, ByVal cellpos As Byte, ByVal over As Boolean)
     Delegate Sub ToolControl(ByVal obj As Object, ByVal enable As Boolean)
-    Public RS485 As New LHSerialPort("COM5", 1200, Parity.Even, 8, 1)
+    Public RS485 As New LHSerialPort("COM3", 1200, Parity.Even, 8, 1)
     Dim CommThread As New Thread(AddressOf CommTask)
     Public Sub mToolControl(ByVal obj As System.Windows.Forms.Timer, ByVal enable As Boolean)
         obj.Enabled = enable
@@ -146,7 +146,7 @@ Public Class frmMain
         ThreadInit()    '线程初始化
 
         OneSec.Enabled = True
-        OneSec.Enabled = True
+        'OneMin.Enabled = True
 
         '单元操作区初始化
         InitOperationZone()
@@ -374,9 +374,9 @@ Public Class frmMain
         Panel3.BorderStyle = Windows.Forms.BorderStyle.None
         Panel3.Enabled = False
 
-        txt标准号.Text = ""
+        txt试验员.Text = ""
         txt生产批号.Text = ""
-        txt质量等级.Text = ""
+
         txt试验编号.Text = ""
         Panel4.BorderStyle = Windows.Forms.BorderStyle.None
         Panel4.Enabled = False
@@ -434,8 +434,7 @@ Public Class frmMain
             .对位表 = pos
             .试验编号 = txt试验编号.Text
             .产品型号 = cmbType.Text
-            .质量等级 = txt质量等级.Text
-            .标准号 = txt标准号.Text
+            .试验员 = txt试验员.Text
             .生产批号 = txt生产批号.Text
             .上限 = float2byte(lblVolt.Text, txtMax.Text)
             .下限 = float2byte(lblVolt.Text, txtMin.Text)

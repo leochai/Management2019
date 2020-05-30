@@ -36,14 +36,11 @@ Public Class DBMethord
                     If Not reader("下限") Is DBNull.Value Then
                         .下限 = reader("下限")
                     End If
-                    If Not reader("质量等级") Is DBNull.Value Then
-                        .质量等级 = reader("质量等级")
-                    End If
                     If Not reader("生产批号") Is DBNull.Value Then
                         .生产批号 = reader("生产批号")
                     End If
-                    If Not reader("标准号") Is DBNull.Value Then
-                        .标准号 = reader("标准号")
+                    If Not reader("试验员") Is DBNull.Value Then
+                        .试验员 = reader("试验员")
                     End If
                     If Not reader("单元状态.试验编号") Is DBNull.Value Then
                         .试验编号 = reader("单元状态.试验编号")
@@ -254,10 +251,9 @@ Public Class DBMethord
         dbcmd.CommandText = "insert into 试验记录 values('" & _unit(unitNo).试验编号 &
                             "', '" & _unit(unitNo).产品型号 &
                             "', '" & _unit(unitNo).生产批号 &
-                            "', '" & _unit(unitNo).标准号 &
+                            "', '" & _unit(unitNo).试验员 &
                             "', #" & _unit(unitNo).开机日期 &
                             "#, '" & _unit(unitNo).结果文件 &
-                            "', '" & _unit(unitNo).质量等级 &
                             "', '" & vc &
                             "', " & _unit(unitNo).上限 &
                             ", " & _unit(unitNo).下限 & ")"
@@ -272,14 +268,13 @@ Public Class DBMethord
         cn.Open()
         dbcmd.Connection = cn
         dbcmd.CommandText =
-            "CREATE TABLE 试验信息 ([试验编号] VarChar,[产品型号] VarChar,[生产批号] VarChar, [质量等级] VarChar, [标准号] VarChar, [开机时间] DATE, [测试单元号] INTEGER)"
+            "CREATE TABLE 试验信息 ([试验编号] VarChar,[产品型号] VarChar,[生产批号] VarChar, [试验员] VarChar, [开机时间] DATE, [测试单元号] INTEGER)"
         dbcmd.ExecuteNonQuery()
         dbcmd.CommandText = "insert into 试验信息 values('" _
                             & _unit(unitNo).试验编号 & "','" _
                             & _unit(unitNo).产品型号 & "','" _
                             & _unit(unitNo).生产批号 & "','" _
-                            & _unit(unitNo).质量等级 & "','" _
-                            & _unit(unitNo).标准号 & "',#" _
+                            & _unit(unitNo).试验员 & "',#" _
                             & _unit(unitNo).开机日期 & "#," _
                             & _unit(unitNo).address & ")"
         dbcmd.ExecuteNonQuery()
