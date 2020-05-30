@@ -498,7 +498,6 @@ Partial Public Class frmMain
                         .lastHour = Now.AddHours(-1)
                     End With
                     MsgBox("放弃340小时后试验并重启成功！",, "提醒")
-                    '还未写回数据库
                     DBMethord.UpdateTest(unitNo)
                     Exit Sub
                 End If

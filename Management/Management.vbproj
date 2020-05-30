@@ -75,7 +75,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LeoControls, Version=1.0.5786.38145, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LeoControls, Version=1.0.7441.18335, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\LeoControls\LeoControls\bin\Debug\LeoControls.dll</HintPath>
     </Reference>

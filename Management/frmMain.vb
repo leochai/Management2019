@@ -128,13 +128,13 @@ Public Class frmMain
         RS485.ReceivedBytesThreshold = 3
         RS485.RtsEnable = True
 
-        Try
-            RS485.Open()
-        Catch ex As Exception
-            MsgBox("请检查串口连接后再打开程序！", , "提醒")
-            Me.Close()
-            System.Environment.Exit(0)
-        End Try
+        'Try
+        '    RS485.Open()
+        'Catch ex As Exception
+        '    MsgBox("请检查串口连接后再打开程序！", , "提醒")
+        '    Me.Close()
+        '    System.Environment.Exit(0)
+        'End Try
 
         '------打开数据库，初始化单元对象
         _DBconn.Open()
@@ -145,7 +145,7 @@ Public Class frmMain
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
 
-        OneSec.Enabled = True
+        'OneSec.Enabled = True
         'OneMin.Enabled = True
 
         '单元操作区初始化
@@ -166,7 +166,7 @@ Public Class frmMain
             End While '跳过停止的单元
             _commFlag.unitNo_polling = i
             _commFlag.polling = True
-            i = (i + 1) Mod 24
+            i = (i + 1) Mod 32
         End If
     End Sub
 
@@ -255,6 +255,7 @@ Public Class frmMain
 
         If _unit(unitNo).Testing = 0 Then
             MsgBox("该单元正在进行测试，请确认后重新选择。",, "提醒")
+            InitOperationZone()
             Exit Sub
         End If
 
@@ -429,8 +430,6 @@ Public Class frmMain
 
         unitTemp = _unit(cmbUnitNo.SelectedIndex)
         With unitTemp
-            .结果文件 = Application.StartupPath & "/试验结果/" &
-                txt试验编号.Text & "_" & Now.Date.ToLongDateString() & ".xls"
             .对位表 = pos
             .试验编号 = txt试验编号.Text
             .产品型号 = cmbType.Text
@@ -439,6 +438,8 @@ Public Class frmMain
             .上限 = float2byte(lblVolt.Text, txtMax.Text)
             .下限 = float2byte(lblVolt.Text, txtMin.Text)
             .开机日期 = Now.Date
+            .结果文件 = "F:/试验结果/" & .产品型号 & "-" &
+                .试验编号 & "-" & Now.Date.ToLongDateString() & ".xls"
             If cmbChipWeishu.SelectedIndex = 0 Then
                 .器件类型 = 0
             ElseIf cmbChipWeishu.SelectedIndex = 1 Then

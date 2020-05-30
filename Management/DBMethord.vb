@@ -268,7 +268,7 @@ Public Class DBMethord
         cn.Open()
         dbcmd.Connection = cn
         dbcmd.CommandText =
-            "CREATE TABLE 试验信息 ([试验编号] VarChar,[产品型号] VarChar,[生产批号] VarChar, [试验员] VarChar, [开机时间] DATE, [测试单元号] INTEGER)"
+            "CREATE TABLE 试验信息 ([试验编号] VarChar,[产品型号] VarChar,[生产批号] VarChar,[试验员] VarChar,[开机时间] DATE, [测试单元号] INTEGER)"
         dbcmd.ExecuteNonQuery()
         dbcmd.CommandText = "insert into 试验信息 values('" _
                             & _unit(unitNo).试验编号 & "','" _
