@@ -72,7 +72,7 @@ Partial Class frmMain
         '
         'OneSec
         '
-        Me.OneSec.Interval = 1300
+        Me.OneSec.Interval = 5000
         '
         'OneMin
         '

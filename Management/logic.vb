@@ -65,9 +65,7 @@ Partial Public Class frmMain
                     If _unit(i).address = address Then
                         _unit(i).Testing = &HC
                         DBMethord.UpdateStates(i, _unit(i).Testing)
-                        ShowList.Item(i).SetResult(i + 1, _unit(i).座子类型,
-                                                   _unit(i).电压流标记, _unit(i).电压流规格,
-                                                   _unit(i).Testing, _unit(i).试验编号)
+                        Me.Invoke(New RefreshShow(AddressOf mRefreshShow), i)
                         Exit For
                     End If
                 Next
@@ -76,9 +74,7 @@ Partial Public Class frmMain
                     If _unit(i).address = address Then
                         _unit(i).Testing = &H30
                         DBMethord.UpdateStates(i, _unit(i).Testing)
-                        ShowList.Item(i).SetResult(i + 1, _unit(i).座子类型,
-                                                   _unit(i).电压流标记, _unit(i).电压流规格,
-                                                   _unit(i).Testing, _unit(i).试验编号)
+                        Me.Invoke(New RefreshShow(AddressOf mRefreshShow), i)
                         Exit For
                     End If
                 Next
@@ -111,9 +107,7 @@ Partial Public Class frmMain
                     If _unit(unitNo).Testing = &HC Then '340继续
                         _unit(unitNo).Testing = 0
                         DBMethord.Update340(unitNo)
-                        ShowList.Item(unitNo).SetResult(unitNo + 1, _unit(unitNo).座子类型,
-                                                   _unit(unitNo).电压流标记, _unit(unitNo).电压流规格,
-                                                   _unit(unitNo).Testing, _unit(unitNo).试验编号)
+                        Me.Invoke(New RefreshShow(AddressOf mRefreshShow), unitNo)
                         Exit For
                     Else                                '1000启动
                         With _unit(unitNo)
@@ -133,9 +127,7 @@ Partial Public Class frmMain
                             End If
                         End If
                         DBMethord.UpdateTest(unitNo)
-                        ShowList.Item(unitNo).SetResult(unitNo + 1, _unit(unitNo).座子类型,
-                                                   _unit(unitNo).电压流标记, _unit(unitNo).电压流规格,
-                                                   _unit(unitNo).Testing, _unit(unitNo).试验编号)
+                        Me.Invoke(New RefreshShow(AddressOf mRefreshShow), unitNo)
                         Exit For
                     End If
                 End If
@@ -464,6 +456,7 @@ Partial Public Class frmMain
                     End With
                     MsgBox("强制重启成功！",, "提醒")
                     DBMethord.UpdateTest(unitNo)
+                    Me.Invoke(New RefreshShow(AddressOf mRefreshShow), unitNo)
                     Exit Sub
                 End If
             End If
@@ -499,6 +492,7 @@ Partial Public Class frmMain
                     End With
                     MsgBox("放弃340小时后试验并重启成功！",, "提醒")
                     DBMethord.UpdateTest(unitNo)
+                    Me.Invoke(New RefreshShow(AddressOf mRefreshShow), unitNo)
                     Exit Sub
                 End If
             End If

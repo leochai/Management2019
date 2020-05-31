@@ -14,8 +14,16 @@ Public Class frmMain
     Delegate Sub Polling_dg4(ByVal volt As Single, ByVal power As Single,
                              ByVal unitnum As Byte, ByVal cellnum As Byte, ByVal cellpos As Byte, ByVal over As Boolean)
     Delegate Sub ToolControl(ByVal obj As Object, ByVal enable As Boolean)
+    Delegate Sub RefreshShow(ByVal unitNo As Byte)
+
     Public RS485 As New LHSerialPort("COM3", 1200, Parity.Even, 8, 1)
     Dim CommThread As New Thread(AddressOf CommTask)
+    Public Sub mRefreshShow(ByVal unitNo As Byte)
+        ShowList.Item(unitNo).SetResult(unitNo + 1, _unit(unitNo).座子类型,
+                                _unit(unitNo).电压流标记, _unit(unitNo).电压流规格,
+                                _unit(unitNo).Testing, _unit(unitNo).试验编号)
+    End Sub
+
     Public Sub mToolControl(ByVal obj As System.Windows.Forms.Timer, ByVal enable As Boolean)
         obj.Enabled = enable
     End Sub
@@ -35,6 +43,11 @@ Public Class frmMain
             ShowList.Add(show)
         Next
     End Sub '画界面
+    'Private Sub RefreshShow()
+    '    For k = 0 To 31
+    '        ShowList.Item(k).SetResult(k + 1, _unit(k).座子类型, _unit(k).电压流标记, _unit(k).电压流规格, _unit(k).Testing, _unit(k).试验编号)
+    '    Next
+    'End Sub
     Private Sub MainShowClick(ByVal sender As Object, ByVal e As EventArgs)
         If _unit(sender.no).Testing = &HC Then
             Dim frm As New frm340
@@ -122,19 +135,20 @@ Public Class frmMain
         'fs.Label1.Text = "加载数据..."
         'fs.Refresh()
 
+        CheckForIllegalCrossThreadCalls = False
         '------设置串口
         RS485.WriteBufferSize = 2048
         RS485.ReadTimeout = 200
         RS485.ReceivedBytesThreshold = 3
         RS485.RtsEnable = True
 
-        'Try
-        '    RS485.Open()
-        'Catch ex As Exception
-        '    MsgBox("请检查串口连接后再打开程序！", , "提醒")
-        '    Me.Close()
-        '    System.Environment.Exit(0)
-        'End Try
+        Try
+            RS485.Open()
+        Catch ex As Exception
+            MsgBox("请检查串口连接后再打开程序！", , "提醒")
+            Me.Close()
+            System.Environment.Exit(0)
+        End Try
 
         '------打开数据库，初始化单元对象
         _DBconn.Open()
@@ -145,8 +159,8 @@ Public Class frmMain
         PaintShow()     '绘制界面
         ThreadInit()    '线程初始化
 
-        'OneSec.Enabled = True
-        'OneMin.Enabled = True
+        OneSec.Enabled = True
+        OneMin.Enabled = True
 
         '单元操作区初始化
         InitOperationZone()
