@@ -150,6 +150,8 @@ Partial Public Class frmMain
 
     Private Sub IntegralTask()
         '招记录信息
+        DBMethord.RefreshPos() '更新对位表
+
         _lastRecallTime = Now
         Dim nowtime As Date = Now.Date
         Dim lastdate As Date = nowtime

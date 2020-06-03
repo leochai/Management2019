@@ -43,11 +43,7 @@ Public Class frmMain
             ShowList.Add(show)
         Next
     End Sub '画界面
-    'Private Sub RefreshShow()
-    '    For k = 0 To 31
-    '        ShowList.Item(k).SetResult(k + 1, _unit(k).座子类型, _unit(k).电压流标记, _unit(k).电压流规格, _unit(k).Testing, _unit(k).试验编号)
-    '    Next
-    'End Sub
+
     Private Sub MainShowClick(ByVal sender As Object, ByVal e As EventArgs)
         If _unit(sender.no).Testing = &HC Then
             Dim frm As New frm340

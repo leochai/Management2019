@@ -1,6 +1,20 @@
 ﻿Imports System.Data.OleDb
 
 Public Class DBMethord
+    Public Shared Sub RefreshPos()
+        Dim dbcom As New OleDbCommand
+        dbcom.Connection = _DBconn
+        Dim reader As OleDbDataReader
+        For i = 0 To 31 '读对位表
+            dbcom.CommandText = "select 老化位号,器件编号 from 对位表 where 老化单元号 = " & i + 1
+            reader = dbcom.ExecuteReader()
+            While reader.Read
+                _unit(i).对位表(reader("老化位号") - 1) = reader("器件编号")
+            End While
+            reader.Close()
+        Next
+    End Sub
+
     Public Shared Sub Initial(ByRef db As OleDbConnection, ByRef unit() As LHUnit)
         Dim dbcom As New OleDbCommand
         dbcom.Connection = db
@@ -57,7 +71,7 @@ Public Class DBMethord
                 End With
             End While
         End If
-        For i = 0 To 23 '读对位表
+        For i = 0 To 31 '读对位表
             dbcom.CommandText = "select 老化位号,器件编号 from 对位表 where 老化单元号 = " & i + 1
             reader.Close()
             reader = dbcom.ExecuteReader()
@@ -70,7 +84,7 @@ Public Class DBMethord
         reader = dbcom.ExecuteReader
         reader.Read()
         _lastRecallTime = reader("时间")
-        reader.Close
+        reader.Close()
     End Sub
 
     'Public Shared Sub WriteResult(ByVal testnum As String, ByVal chipnum As Byte, ByVal num As Byte, _
@@ -87,6 +101,7 @@ Public Class DBMethord
 
     Public Shared Sub WriteResult(ByVal unitNo As Byte, ByVal chippos As Byte, ByVal AD As Byte， AD1 As Byte)
         If _unit(unitNo).结果文件 = "" Then Exit Sub
+        If _unit(unitNo).对位表(chippos) = 0 Then Exit Sub
 
         Dim cn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" _
             & _unit(unitNo).结果文件 & ";Extended Properties='Excel 8.0'")
@@ -217,9 +232,9 @@ Public Class DBMethord
         Dim dbcmd As New OleDbCommand
 
         dbcmd.Connection = _DBconn
-        dbcmd.CommandText = "update 单元状态 set 器件类型 = " & _unit(unitNo).器件类型 & _
-                            ", 运行状态 = 0, 最近上传时间 = #" & Now & _
-                            "#, 试验编号 = '" & _unit(unitNo).试验编号 & _
+        dbcmd.CommandText = "update 单元状态 set 器件类型 = " & _unit(unitNo).器件类型 &
+                            ", 运行状态 = 0, 最近上传时间 = #" & Now &
+                            "#, 试验编号 = '" & _unit(unitNo).试验编号 &
                             "' where 老化单元号 = " & unitNo + 1
         dbcmd.ExecuteNonQuery()
 
@@ -296,7 +311,7 @@ Public Class DBMethord
         excelcmd.ExecuteNonQuery()
         cn.Close()
     End Sub
-	
+
     Public Shared Sub UpdateRecallTime()
         Dim dbcmd As New OleDbCommand
         dbcmd.Connection = _DBconn
@@ -320,8 +335,8 @@ Public Class DBMethord
         dbcmd.CommandText = "update 单元状态 set 运行状态 = 0 where 老化单元号 = " & unitNo + 1
         dbcmd.ExecuteNonQuery()
         For i = 0 To 95
-            dbcmd.CommandText = "update 对位表 set 器件编号 = " & _unit(unitNo).对位表(i) & _
-                                " where 老化单元号 = " & unitNo + 1 & _
+            dbcmd.CommandText = "update 对位表 set 器件编号 = " & _unit(unitNo).对位表(i) &
+                                " where 老化单元号 = " & unitNo + 1 &
                                 " and 老化位号 = " & i + 1
             dbcmd.ExecuteNonQuery()
         Next

@@ -464,6 +464,8 @@ Partial Class frmMain
         Me.Controls.Add(Me.grp操作)
         Me.Controls.Add(Me.Label35)
         Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Location = New System.Drawing.Point(200, 200)
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
