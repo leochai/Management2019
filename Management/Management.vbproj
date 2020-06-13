@@ -156,14 +156,6 @@
     <Compile Include="frmRoot.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm启动试验.Designer.vb">
-      <DependentUpon>frm启动试验.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frm启动试验.vb" />
-    <Compile Include="frm数据检索.Designer.vb">
-      <DependentUpon>frm数据检索.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frm数据检索.vb" />
     <Compile Include="LHSerialPort.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -216,13 +208,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRoot.resx">
       <DependentUpon>frmRoot.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm启动试验.resx">
-      <DependentUpon>frm启动试验.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm数据检索.resx">
-      <DependentUpon>frm数据检索.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">

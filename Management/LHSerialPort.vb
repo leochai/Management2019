@@ -1,5 +1,4 @@
-﻿
-Public Class LHSerialPort
+﻿Public Class LHSerialPort
     Inherits System.IO.Ports.SerialPort
 
     Public outputbuffer(31) As Byte
@@ -21,9 +20,9 @@ Public Class LHSerialPort
     Public Shared cmdNegative As Byte = &H33 '否认应答
     Public Shared cmdNotSame As Byte = &H3C '器件类型不符
 
-    Public Sub New(ByVal portName As String, ByVal baudRate As Integer, _
+    Public Sub New(ByVal portName As String, ByVal baudRate As Integer,
                    ByVal parity As IO.Ports.Parity, ByVal dataBits As Integer, ByVal stopBits As IO.Ports.StopBits)
-        MyBase.new(portName, baudRate, parity, dataBits, stopBits)
+        MyBase.New(portName, baudRate, parity, dataBits, stopBits)
     End Sub
     Private Function CS(ByVal input() As Byte, ByVal len As Integer) As Byte
         '计算校验码
@@ -141,7 +140,7 @@ Public Class LHSerialPort
     End Sub
 
     '发送老化时间对时帧
-    Public Sub WriteLHTimeModify(ByVal address As Byte, ByVal second As Byte, _
+    Public Sub WriteLHTimeModify(ByVal address As Byte, ByVal second As Byte,
                                  ByVal minute As Byte, ByVal lhour As Byte, ByVal hhour As Byte)
         Dim wbuffer(10) As Byte
 
