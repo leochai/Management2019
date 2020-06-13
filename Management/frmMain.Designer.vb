@@ -144,6 +144,7 @@ Partial Class frmMain
         'txt试验员
         '
         Me.txt试验员.Location = New System.Drawing.Point(109, 71)
+        Me.txt试验员.MaxLength = 4
         Me.txt试验员.Name = "txt试验员"
         Me.txt试验员.Size = New System.Drawing.Size(133, 23)
         Me.txt试验员.TabIndex = 14

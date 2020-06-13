@@ -88,4 +88,25 @@ Public Class frmPosChart4
             cell(i).SetTrue()
         Next
     End Sub
+
+    Private Sub btn1_Click(sender As Object, e As EventArgs) Handles btn1.Click
+        For i = 0 To 5
+            cell(i).SetTrue()
+        Next
+    End Sub
+    Private Sub btn2_Click(sender As Object, e As EventArgs) Handles btn2.Click
+        For i = 6 To 11
+            cell(i).SetTrue()
+        Next
+    End Sub
+    Private Sub btn3_Click(sender As Object, e As EventArgs) Handles btn3.Click
+        For i = 12 To 17
+            cell(i).SetTrue()
+        Next
+    End Sub
+    Private Sub btn4_Click(sender As Object, e As EventArgs) Handles btn4.Click
+        For i = 18 To 23
+            cell(i).SetTrue()
+        Next
+    End Sub
 End Class

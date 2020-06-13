@@ -430,6 +430,22 @@ Public Class frmMain
 
     Private Sub btnStartOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnStartOK.Click
         Dim pos(95) As Byte
+
+        If txt试验编号.Text = "" Then
+            MsgBox("请输入试验编号",, "提醒")
+            Exit Sub
+        End If
+
+        If txt生产批号.Text = "" Then
+            MsgBox("请输入生产批号",, "提醒")
+            Exit Sub
+        End If
+
+        If txt试验员.Text = "" Then
+            MsgBox("请输入试验员姓名",, "提醒")
+            Exit Sub
+        End If
+
         pos = unitTemp.对位表
 
         If cmbChipWeishu.SelectedIndex = 3 And cmbUnitNo.SelectedIndex >= 24 Then '发光二极管独立器件
