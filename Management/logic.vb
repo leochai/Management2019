@@ -153,9 +153,9 @@ Partial Public Class frmMain
         DBMethord.RefreshPos() '更新对位表
 
         _lastRecallTime = Now
-        Dim nowtime As Date = Now.Date
-        Dim lastdate As Date = nowtime
-        Dim thisdate As Date = nowtime
+
+        Dim lastdate As Date = Now.Date
+        Dim thisdate As Date = Now.Date
         Dim lastrecord(2) As Byte
         Dim thisrecord(2) As Byte
         Dim i As Byte
@@ -170,6 +170,7 @@ Partial Public Class frmMain
                 End If
                 If cmdBack = LHSerialPort.cmdRecord Then
                     If _readBuffer(5) = 0 And _readBuffer(6) = 0 And _readBuffer(7) = 0 Then
+                        '上一日记录日期
                         lastdate = #1/1/2000#
                     Else
                         lastdate = lastdate.AddDays(DownloadCmd.BCD2Num(_readBuffer(5)) - lastdate.Day)
@@ -177,6 +178,7 @@ Partial Public Class frmMain
                         lastdate = lastdate.AddYears(DownloadCmd.BCD2Num(_readBuffer(7)) - lastdate.Year + 2000)
                     End If
                     If _readBuffer(8) = 0 And _readBuffer(9) = 0 And _readBuffer(10) = 0 Then
+                        '当日记录日期
                         thisdate = #1/1/2000#
                     Else
                         thisdate = thisdate.AddDays(DownloadCmd.BCD2Num(_readBuffer(8)) - thisdate.Day)
@@ -196,7 +198,7 @@ Partial Public Class frmMain
 
             '上一日记录召回
             Select Case Date.Compare(_unit(k).lastHour.Date, lastdate.Date)
-                Case 0          '上次记录日期等于上一日日期，从上次记录时间开始往后召回
+                Case 0          '上次召回日期=上一日有效日期，
                     For i = _unit(k).lastHour.Hour + 1 To 23
                         If Now.Minute >= 58 Then
                             _commFlag.integral = False
@@ -207,13 +209,13 @@ Partial Public Class frmMain
                         End If
                         If ((lastrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
                             _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                            Continue For
+                        Else
+                            _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                            IntegralPerHour(k)
+                            DBMethord.UpdateHour(k, _unit(k).lastHour)
                         End If
-                        _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                        IntegralPerHour(k)
-                        DBMethord.UpdateHour(k, _unit(k).lastHour)
                     Next
-                Case -1         '上次记录日期小于上一日日期，召回整个上一日有效记录
+                Case -1         '上次召回日期<上一日有效日期，召回整个上一日有效记录
                     _unit(k).lastHour = lastdate.AddHours(-1)
                     For i = 0 To 23
                         If Now.Minute >= 58 Then
@@ -225,51 +227,92 @@ Partial Public Class frmMain
                         End If
                         If ((lastrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
                             _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                            Continue For
+                        Else
+                            _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                            IntegralPerHour(k)
+                            DBMethord.UpdateHour(k, _unit(k).lastHour)
                         End If
-                        _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                        IntegralPerHour(k)
-                        DBMethord.UpdateHour(k, _unit(k).lastHour)
                     Next
             End Select
 
-            '当日记录召回
-            Select Case Date.Compare(_unit(k).lastHour.Date, thisdate.Date)
-                Case 0          '上次记录日期等于当日日期，从上次记录时间开始往后召回
-                    For i = _unit(k).lastHour.Hour + 1 To Now.Hour
-                        If Now.Minute >= 58 Then
-                            _commFlag.integral = False
-                            DBMethord.UpdateRecallTime()
-                            Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
-                            Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
-                            Exit Sub
-                        End If
-                        If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
-                            _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                            Continue For
-                        End If
-                        _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                        IntegralPerHour(k)
-                        DBMethord.UpdateHour(k, _unit(k).lastHour)
-                    Next
-                Case -1         '上次记录日期小于上一日日期，召回整个当日有效记录
-                    _unit(k).lastHour = thisdate.AddHours(-1)
-                    For i = 0 To 23
-                        If Now.Minute >= 58 Then
-                            _commFlag.integral = False
-                            DBMethord.UpdateRecallTime()
-                            Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
-                            Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
-                            Exit Sub
-                        End If
-                        If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
-                            _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                            Continue For
-                        End If
-                        _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
-                        IntegralPerHour(k)
-                        DBMethord.UpdateHour(k, _unit(k).lastHour)
-                    Next
+            '当日记录召回，分两种情况
+            Select Case Date.Compare(thisdate.Date, Now.Date)
+                Case -1 '1、下位机当日日期是前几日
+                    Select Case Date.Compare(_unit(k).lastHour.Date, thisdate.Date)
+                        Case 0          '上次记录日期等于当日日期，从上次记录时间开始往后召回
+                            For i = _unit(k).lastHour.Hour + 1 To 23
+                                If Now.Minute >= 58 Then
+                                    _commFlag.integral = False
+                                    DBMethord.UpdateRecallTime()
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
+                                    Exit Sub
+                                End If
+                                If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                Else
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                    IntegralPerHour(k)
+                                    DBMethord.UpdateHour(k, _unit(k).lastHour)
+                                End If
+                            Next
+                        Case -1         '上次记录日期小于当日日期，召回整个当日有效记录
+                            _unit(k).lastHour = thisdate.AddHours(-1)
+                            For i = 0 To 23
+                                If Now.Minute >= 58 Then
+                                    _commFlag.integral = False
+                                    DBMethord.UpdateRecallTime()
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
+                                    Exit Sub
+                                End If
+                                If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                Else
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                    IntegralPerHour(k)
+                                    DBMethord.UpdateHour(k, _unit(k).lastHour)
+                                End If
+                            Next
+                    End Select
+                Case 0  '下位机当日日期就是实际上的今天
+                    Select Case Date.Compare(_unit(k).lastHour.Date, thisdate.Date)
+                        Case 0          '上次记录日期等于当日日期，从上次记录时间开始往后召回
+                            For i = _unit(k).lastHour.Hour + 1 To Now.Hour
+                                If Now.Minute >= 58 Then
+                                    _commFlag.integral = False
+                                    DBMethord.UpdateRecallTime()
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
+                                    Exit Sub
+                                End If
+                                If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                Else
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                    IntegralPerHour(k)
+                                    DBMethord.UpdateHour(k, _unit(k).lastHour)
+                                End If
+                            Next
+                        Case -1         '上次记录日期小于当日日期，召回整个当日有效记录
+                            _unit(k).lastHour = thisdate.AddHours(-1)
+                            For i = 0 To Now.Hour
+                                If Now.Minute >= 58 Then
+                                    _commFlag.integral = False
+                                    DBMethord.UpdateRecallTime()
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneSec, True)
+                                    Me.Invoke(New ToolControl(AddressOf mToolControl), OneMin, True)
+                                    Exit Sub
+                                End If
+                                If ((thisrecord(i \ 8) >> (i Mod 8)) And 1) = 0 Then    '数据无效，跳过
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                Else
+                                    _unit(k).lastHour = _unit(k).lastHour.AddHours(1)
+                                    IntegralPerHour(k)
+                                    DBMethord.UpdateHour(k, _unit(k).lastHour)
+                                End If
+                            Next
+                    End Select
             End Select
         Next k
 
