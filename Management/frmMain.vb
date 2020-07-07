@@ -65,46 +65,7 @@ Public Class frmMain
     End Sub '线程初始化
 
     Private Sub frmMain_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Click
-        '_integralFlag = True
-        'ShowList(6).Item(5).setResult(5.5, 6.6)
-        'Dim v As Single = 5.5
-        'Dim mA As Single = 6.6
-        'Dim i As Byte = 5
-        'Dim pos As Byte = 50
-        ''PollingShow(v, v * mA, i, (pos - 1) \ 4, (pos - 1) Mod 4)
-        'PollingShow(v, v * mA, i + 1, (pos - 1) \ 4 + 1, (pos - 1) Mod 4)
 
-        'OneSec.Enabled = Not OneSec.Enabled
-        '_commFlag.integral = True
-        '_commFlag.unitNo = 0
-        '_commFlag.startup = True
-        'Dim cmd As New OleDbCommand
-        'cmd.Connection = _DBconn
-        'cmd.CommandText = "delete * from 试验结果"
-        'cmd.ExecuteNonQuery()
-        'Button1.Text = "ok"
-        'Dim dbcmd As New OleDbCommand
-        'dbcmd.Connection = _DBconn
-        'For i = 1 To 9
-        '    For j = 1 To 2
-        '        dbCmd.CommandText = "insert into 试验结果 values ('" _
-        '                            & (i * 10).ToString & _
-        '                            "' , '" & i & _
-        '                            "' , '" & 1 & _
-        '                            "' , '" & Now & _
-        '                            "' , '28.1')"
-        '        dbCmd.ExecuteNonQuery()
-        '    Next
-        'Next
-        'OneMin.Enabled = True
-        'Panel2.Enabled = False
-        'Panel3.Enabled = Not Panel3.Enabled
-        'cmbUnitNo.SelectedIndex = -1
-        'Me.Enabled = False
-
-        'Dim frm As New frm340
-        'frm.unitNo = 10
-        'frm.Show()
     End Sub
 
     Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -161,7 +122,6 @@ Public Class frmMain
         '单元操作区初始化
         InitOperationZone()
 
-        'fs.Close()
     End Sub
 
     Private Sub OneSec_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OneSec.Tick
