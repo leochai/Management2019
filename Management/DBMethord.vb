@@ -103,18 +103,13 @@ Public Class DBMethord
         If _unit(unitNo).结果文件 = "" Then Exit Sub
         If _unit(unitNo).对位表(chippos) = 0 Then Exit Sub
 
-        Dim cn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" _
-            & _unit(unitNo).结果文件 & ";Extended Properties='Excel 8.0'")
         Dim dbcmd As New OleDbCommand
         Dim time As Date
         Dim volt As Double, current As Double, power As Double
-        dbcmd.Connection = cn
+        dbcmd.Connection = _Xelconn
         time = _unit(unitNo).lastHour
         time = time.AddSeconds(-time.Second)
         time = time.AddMinutes(-time.Minute)
-
-
-        cn.Open()
 
         If _unit(unitNo).座子类型 Then '16脚座子，只有21 25 28三种额定电压
             Select Case _unit(unitNo).电压流规格
@@ -218,7 +213,7 @@ Public Class DBMethord
 
         dbcmd.ExecuteNonQuery()
 
-        cn.Close()
+
     End Sub
 
     Public Shared Sub UpdateHour(ByVal unitNo As Byte, ByVal time As Date)

@@ -27,6 +27,7 @@ Public Class commFlag
 End Class
 
 Module pubdeclare
+    Public _Xelconn As New OleDbConnection
     Public _DBconn As New OleDbConnection("Provider=Microsoft.Ace.OleDb.12.0;Data Source=" & Application.StartupPath & "/db/老化台.accdb")
     Public _unit(32) As LHUnit
     Public _readBuffer(32) As Byte
@@ -34,4 +35,5 @@ Module pubdeclare
     Public _rts前沿 As Integer = 2
     Public _rts后沿 As Integer = 10
     Public _lastRecallTime As Date
+
 End Module
